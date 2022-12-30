@@ -1,15 +1,37 @@
 from openpyxl import *
 from tkinter import *
 
+from openpyxl.styles import Alignment
 
 wb = load_workbook("C:\\Users\\snoew\\Desktop\\demo.xlsx")
 
 sheet = wb.active
 
-# def excel():
+def excel():
     # Set column dimensions
 
-    # Add Headers to top row
+
+
+    # Merge cells
+    sheet.merge_cells('A1:A2')
+    sheet.merge_cells('B1:B2')
+    sheet.merge_cells('C1:D1')
+
+    # Give them values
+    sheet['A1'].value = "Dag"
+    sheet['B1'].value = "Köpare, säljare, varuslag etc."
+    sheet['C1'].value = "Kassa"
+    sheet['C2'].value = "Inbetalningar"
+    sheet['D2'].value = "Utbetalningar"
+
+    # Center the values
+    sheet['A1'].alignment = Alignment(horizontal='center')
+    sheet['B1'].alignment = Alignment(horizontal='center')
+    sheet['C1'].alignment = Alignment(horizontal='center')
+    sheet['C2'].alignment = Alignment(horizontal='center')
+    sheet['D2'].alignment = Alignment(horizontal='center')
+
+
 
 # Set focus(event) for every field
 # def focus(event):
@@ -52,7 +74,8 @@ if __name__ == "__main__":
     # Bind method to call for the focus function
     # Grid method to place entry boxes
 
-    # excel()
+    excel()
+    wb.save("C:\\Users\\snoew\\Desktop\\demo.xlsx")
 
     # Save button
 
