@@ -1,7 +1,7 @@
 from openpyxl import *
 from tkinter import *
 
-from openpyxl.styles import Alignment
+from openpyxl.styles import Alignment, Font
 
 wb = load_workbook("C:\\Users\\snoew\\Desktop\\demo.xlsx")
 
@@ -24,12 +24,22 @@ def excel():
     sheet['C2'].value = "Inbetalningar"
     sheet['D2'].value = "Utbetalningar"
 
+    # Change the font
+    for i in range(1, sheet.max_column +1):
+        # Row 1
+        cell_obj = sheet.cell(row = 1, column = i)
+        cell_obj.font = Font(size = 12, bold = True)
+        # Row 2
+        cell_obj = sheet.cell(row = 2, column = i)
+        cell_obj.font = Font(size=12, bold=True)
+
     # Center the values
     sheet['A1'].alignment = Alignment(horizontal='center')
     sheet['B1'].alignment = Alignment(horizontal='center')
     sheet['C1'].alignment = Alignment(horizontal='center')
     sheet['C2'].alignment = Alignment(horizontal='center')
     sheet['D2'].alignment = Alignment(horizontal='center')
+
 
 
 
