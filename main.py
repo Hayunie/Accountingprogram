@@ -3,42 +3,47 @@ from tkinter import *
 
 from openpyxl.styles import Alignment, Font
 
-wb = load_workbook("C:\\Users\\snoew\\Desktop\\demo.xlsx")
+wb = load_workbook("C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx")
 sheet = wb.active
-
 def excel():
     # Set column dimensions
 
 
 
     # Merge cells
-    sheet.merge_cells('A1:A2')
-    sheet.merge_cells('B1:B2')
-    sheet.merge_cells('C1:D1')
-    sheet.merge_cells('A3:D3')
+    sheet.merge_cells('A1:F1')
+    sheet.merge_cells('A2:A3')
+    sheet.merge_cells('B2:B3')
+    sheet.merge_cells('C2:D2')
+    sheet.merge_cells('A4:B4')
 
-    # Give them values
-    sheet['A1'].value = "Dag"
-    sheet['A3'].value = 'SUMMA'
-    sheet['B1'].value = "Köpare, säljare, varuslag etc."
-    sheet['C1'].value = "Kassa"
-    sheet['C2'].value = "Inbetalningar"
-    sheet['D2'].value = "Utbetalningar"
+    # Give the headers values
+    sheet['A1'].value = "Fördelning av"
+    sheet['A2'].value = "Dag"
+    sheet['A4'].value = 'SUMMA'
+    sheet['B2'].value = "Köpare, säljare, varuslag etc."
+    sheet['C2'].value = "Kassa"
+    sheet['C3'].value = "Inbetalningar"
+    sheet['D3'].value = "Utbetalningar"
+
 
 
 
     # Change the font
     wb.font = Font(size = 12)
-    for cell in sheet[3:3]:
+    for cell in sheet[4:4]:
         cell.font = Font(size = 14, bold = True)
-    sheet['C1'].font = Font(size = 12, bold = True)
+    sheet['C2'].font = Font(size = 12, bold = True)
 
     # Center the values
-    sheet['A1'].alignment = Alignment(horizontal='center')
-    sheet['B1'].alignment = Alignment(horizontal='center')
-    sheet['C1'].alignment = Alignment(horizontal='center')
-    sheet['C2'].alignment = Alignment(horizontal='center')
-    sheet['D2'].alignment = Alignment(horizontal='center')
+    for cell in sheet[1]:
+        cell.alignment = Alignment(horizontal='center')
+    for cell in sheet[2]:
+        cell.alignment = Alignment(horizontal='center')
+
+
+
+
 
 
 
@@ -85,7 +90,7 @@ if __name__ == "__main__":
     # Grid method to place entry boxes
 
     excel()
-    wb.save("C:\\Users\\snoew\\Desktop\\demo.xlsx")
+    wb.save("C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx")
 
     # Save button
 
