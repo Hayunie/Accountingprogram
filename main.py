@@ -115,8 +115,14 @@ def focus6(event):
         sheet.cell(row=current_row + 1, column=1).value = day_field.get()
         if current_main_type == "Inkomst":
             sheet.cell(current_row + 1, column=3).value = brutto_field.get()
+            # Moms
+            # Subtype
+                # Netto
         elif current_main_type == "Utgift":
             sheet.cell(current_row + 1, column=4).value = brutto_field.get()
+            # Moms
+            # Subtype
+                # Netto
 
 
 
