@@ -4,7 +4,6 @@ from tkinter import *
 from openpyxl.styles import Alignment, Font
 
 wb = load_workbook("C:\\Users\\snoew\\Desktop\\demo.xlsx")
-
 sheet = wb.active
 
 def excel():
@@ -16,22 +15,23 @@ def excel():
     sheet.merge_cells('A1:A2')
     sheet.merge_cells('B1:B2')
     sheet.merge_cells('C1:D1')
+    sheet.merge_cells('A3:D3')
 
     # Give them values
     sheet['A1'].value = "Dag"
+    sheet['A3'].value = 'SUMMA'
     sheet['B1'].value = "Köpare, säljare, varuslag etc."
     sheet['C1'].value = "Kassa"
     sheet['C2'].value = "Inbetalningar"
     sheet['D2'].value = "Utbetalningar"
 
+
+
     # Change the font
-    for i in range(1, sheet.max_column +1):
-        # Row 1
-        cell_obj = sheet.cell(row = 1, column = i)
-        cell_obj.font = Font(size = 12, bold = True)
-        # Row 2
-        cell_obj = sheet.cell(row = 2, column = i)
-        cell_obj.font = Font(size=12, bold=True)
+    wb.font = Font(size = 12)
+    for cell in sheet[3:3]:
+        cell.font = Font(size = 14, bold = True)
+    sheet['C1'].font = Font(size = 12, bold = True)
 
     # Center the values
     sheet['A1'].alignment = Alignment(horizontal='center')
