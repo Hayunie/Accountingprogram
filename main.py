@@ -62,6 +62,13 @@ def focus6(event):
 
 #def clear():
     # Clear every field in the GUI
+    receipt_name_field.delete(0, END)
+    day_field.delete(0, END)
+    month_field.delete(0, END)
+    main_type_field.delete(0, END)
+    sub_type_field.delete(0, END)
+    price_field.delete(0, END)
+    moms_field.delete(0, END)
 
 #def insert():
     # Take the data from the GUI and write to excel file
@@ -120,13 +127,13 @@ if __name__ == "__main__":
     percent.grid(row=6, column=3,sticky="w")
 
     # Create a text entrybox for every data entry
-    receipt_name_field = Entry(root)
-    day_field = Entry(root, width=10)
-    month_field = Entry(root, width=10)
-    main_type_field = Entry(root, width=20)
-    sub_type_field = Entry(root, width=10)
-    price_field = Entry(root, width=10)
-    moms_field = Entry(root, width=10)
+    receipt_name_field = Entry(root, font=12)
+    day_field = Entry(root, width=5, font=12)
+    month_field = Entry(root, width=5, font=12)
+    main_type_field = Entry(root, width=10, font=12)
+    sub_type_field = Entry(root, width=5, font=12)
+    price_field = Entry(root, width=5, font=12)
+    moms_field = Entry(root, width=5, font=12)
 
     # Bind method to call for the focus function
     receipt_name_field.bind("<Return>", focus1)
@@ -139,8 +146,8 @@ if __name__ == "__main__":
     # Grid method to place entry
     receipt_name_field.grid(row=1, column=5)
     day_field.grid(row=2, column=1, sticky="w", ipadx=2)
-    month_field.grid(row=2, column=4, sticky="w", ipadx=5)
-    main_type_field.grid(row=3, column=3, sticky="w", ipadx=2, columnspan=2)
+    month_field.grid(row=2, column=4, sticky="w", ipadx=2)
+    main_type_field.grid(row=3, column=3, sticky="w", ipadx=6, columnspan=2)
     sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
     price_field.grid(row=5, column=1, sticky="w", ipadx=2)
     moms_field.grid(row=6, column=1, sticky="w", ipadx=2)
@@ -150,6 +157,8 @@ if __name__ == "__main__":
     wb.save("C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx")
 
     # Save button
+    save = Button(root, text="Spara", bg="Yellow")
+    save.grid(row=7, column=3)
 
     root.mainloop()
 
