@@ -102,17 +102,17 @@ if __name__ == "__main__":
     month = Label(root, text="Månad", font=12, bg="light blue")
     main_type = Label(root, text="Inkomst eller Utgift", font=12, bg="light blue")
     sub_type = Label(root, text="Sort", font=12, bg="light blue")
-    price = Label(root, text="pris", font=12, bg="light blue")
+    price = Label(root, text="Pris", font=12, bg="light blue")
     kr = Label(root, text="Kr", font=12, bg="light blue")
     moms = Label(root, text="Moms", font=12, bg="light blue")
     percent = Label(root, text="%", font=12, bg="light blue")
 
     # Grid method to place widgets at respective positions
-    header.grid(row=0, column = 1)
-    receipt_name.grid(row=1, column=0)
+    header.grid(row=0, column = 3)
+    receipt_name.grid(row=1, column=0, sticky="w", columnspan=2)
     day.grid(row=2, column=0, sticky="w")
     month.grid(row=2, column=3, sticky="w")
-    main_type.grid(row=3, column=0, sticky="w")
+    main_type.grid(row=3, column=0, sticky="w", columnspan=2)
     sub_type.grid(row=4, column=0, sticky="w")
     price.grid(row=5, column=0, sticky="w")
     kr.grid(row=5, column=3, sticky="w")
@@ -135,10 +135,15 @@ if __name__ == "__main__":
     main_type_field.bind("<Return>", focus4)
     sub_type_field.bind("<Return>", focus5)
     price_field.bind("<Return>", focus6)
+
     # Grid method to place entry
-    receipt_name_field.grid(row=1, column=1)
+    receipt_name_field.grid(row=1, column=3)
     day_field.grid(row=2, column=1, sticky="w")
     month_field.grid(row=2, column=4)
+    main_type_field.grid(row=3, column=3)
+    sub_type_field.grid(row=4, column=3)
+    price_field.grid(row=5, column=3)
+    moms_field.grid(row=6, column=3)
 
 
     excel()
