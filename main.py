@@ -100,6 +100,7 @@ def focus6(event):
     else:
         current_month = month_field.get()
        # Set active sheet to current_month
+        excel()
 
         current_row = sheet.max_row
         current_column = sheet.max_column
