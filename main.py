@@ -2,9 +2,23 @@ from openpyxl import *
 from tkinter import *
 
 from openpyxl.styles import Alignment, Font, PatternFill
-
-wb = load_workbook("C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx")
+path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx"
+wb = load_workbook(path)
 sheet = wb.active
+def sheets():
+    sheet.title = "Januari"
+    wb.create_sheet(title="Februari")
+    wb.create_sheet(title="Mars")
+    wb.create_sheet(title="April")
+    wb.create_sheet(title="Maj")
+    wb.create_sheet(title="Juni")
+    wb.create_sheet(title="Juli")
+    wb.create_sheet(title="Augusti")
+    wb.create_sheet(title="September")
+    wb.create_sheet(title="Oktober")
+    wb.create_sheet(title="November")
+    wb.create_sheet(title="December")
+
 def excel():
     # Set column dimensions
 
@@ -45,6 +59,8 @@ def excel():
         if x % 2 != 0:
             c.fill = PatternFill(start_color="ADD8E6", fill_type= "solid")
 
+    # Formula for the total
+    sheet['C4'] = '=SUM(C5:INDEX(C:C,ROWS(C:C)))'
 
 # Set focus(event) for every field
 def focus1(event):
@@ -56,9 +72,9 @@ def focus3(event):
 def focus4(event):
     sub_type_field.focus_set()
 def focus5(event):
-    price_field.focus_set()
+    brutto_field.focus_set()
 def focus6(event):
-    moms_field.focus_set()
+    momsPercent_field.focus_set()
 
 #def clear():
     # Clear every field in the GUI
@@ -67,11 +83,43 @@ def focus6(event):
     month_field.delete(0, END)
     main_type_field.delete(0, END)
     sub_type_field.delete(0, END)
-    price_field.delete(0, END)
-    moms_field.delete(0, END)
+    brutto_field.delete(0, END)
+    momsPercent_field.delete(0, END)
 
 #def insert():
     # Take the data from the GUI and write to excel file
+    if (receipt_name_field.get() == "" and
+        day_field.get() == "" and
+        month_field.get() == "" and
+        main_type_field.get() == "" and
+        sub_type_field.get() == "" and
+        brutto_field.get() == "" and
+        momsPercent_field.get() == ""):
+        print("empty input")
+
+    else:
+        current_month = month_field.get()
+       # Set active sheet to current_month
+
+        current_row = sheet.max_row
+        current_column = sheet.max_column
+        current_main_type = main_type_field.get()
+        brutto = float(brutto_field.get())
+        momsPer = float(momsPercent_field.get())
+        momsKr = brutto*momsPer
+        netto = brutto-momsKr
+
+
+        sheet.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
+        sheet.cell(row=current_row + 1, column=1).value = day_field.get()
+        if current_main_type == "Inkomst":
+            sheet.cell(current_row + 1, column=3).value = brutto_field.get()
+        elif current_main_type == "Utgift":
+            sheet.cell(current_row + 1, column=4).value = brutto_field.get()
+
+
+
+
 
     # Get method to return current text as strinf and write it into excel
     # at particular location
@@ -83,7 +131,7 @@ def focus6(event):
     # clear()
 
 # def newFile()
-    # add sheets for every month
+    # sheets()
     # excel()
 
 # def openFile()
@@ -102,6 +150,7 @@ if __name__ == "__main__":
     root.geometry("800x600")
     excel()
 
+
     # Create labels for every data entry
     header = Label(root, text="Kvitto", font=14, bg="light blue")
     receipt_name = Label(root, text="Köpare, Säljare, Varumärke etc.", font=12, bg="light blue")
@@ -109,9 +158,9 @@ if __name__ == "__main__":
     month = Label(root, text="Månad", font=12, bg="light blue")
     main_type = Label(root, text="Inkomst eller Utgift", font=12, bg="light blue")
     sub_type = Label(root, text="Sort", font=12, bg="light blue")
-    price = Label(root, text="Pris", font=12, bg="light blue")
+    brutto = Label(root, text="Pris", font=12, bg="light blue")
     kr = Label(root, text="Kr", font=12, bg="light blue")
-    moms = Label(root, text="Moms", font=12, bg="light blue")
+    momsPercent = Label(root, text="Moms", font=12, bg="light blue")
     percent = Label(root, text="%", font=12, bg="light blue")
 
     # Grid method to place widgets at respective positions
@@ -121,9 +170,9 @@ if __name__ == "__main__":
     month.grid(row=2, column=3, sticky="w", columnspan=1)
     main_type.grid(row=3, column=0, sticky="w", columnspan=3)
     sub_type.grid(row=4, column=0, sticky="w", columnspan=1)
-    price.grid(row=5, column=0, sticky="w", columnspan=1)
+    brutto.grid(row=5, column=0, sticky="w", columnspan=1)
     kr.grid(row=5, column=3, sticky="w")
-    moms.grid(row=6, column=0, sticky="w", columnspan=1)
+    momsPercent.grid(row=6, column=0, sticky="w", columnspan=1)
     percent.grid(row=6, column=3,sticky="w")
 
     # Create a text entrybox for every data entry
@@ -132,8 +181,8 @@ if __name__ == "__main__":
     month_field = Entry(root, width=5, font=12)
     main_type_field = Entry(root, width=10, font=12)
     sub_type_field = Entry(root, width=5, font=12)
-    price_field = Entry(root, width=5, font=12)
-    moms_field = Entry(root, width=5, font=12)
+    brutto_field = Entry(root, width=5, font=12)
+    momsPercent_field = Entry(root, width=5, font=12)
 
     # Bind method to call for the focus function
     receipt_name_field.bind("<Return>", focus1)
@@ -141,7 +190,7 @@ if __name__ == "__main__":
     month_field.bind("<Return>", focus3)
     main_type_field.bind("<Return>", focus4)
     sub_type_field.bind("<Return>", focus5)
-    price_field.bind("<Return>", focus6)
+    brutto_field.bind("<Return>", focus6)
 
     # Grid method to place entry
     receipt_name_field.grid(row=1, column=5)
@@ -149,12 +198,12 @@ if __name__ == "__main__":
     month_field.grid(row=2, column=4, sticky="w", ipadx=2)
     main_type_field.grid(row=3, column=3, sticky="w", ipadx=6, columnspan=2)
     sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
-    price_field.grid(row=5, column=1, sticky="w", ipadx=2)
-    moms_field.grid(row=6, column=1, sticky="w", ipadx=2)
+    brutto_field.grid(row=5, column=1, sticky="w", ipadx=2)
+    momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)
 
 
     excel()
-    wb.save("C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx")
+    wb.save(path)
 
     # Save button
     save = Button(root, text="Spara", bg="Yellow")
