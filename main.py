@@ -109,24 +109,24 @@ if __name__ == "__main__":
 
     # Grid method to place widgets at respective positions
     header.grid(row=0, column = 3)
-    receipt_name.grid(row=1, column=0, sticky="w", columnspan=2)
-    day.grid(row=2, column=0, sticky="w")
-    month.grid(row=2, column=3, sticky="w")
-    main_type.grid(row=3, column=0, sticky="w", columnspan=2)
-    sub_type.grid(row=4, column=0, sticky="w")
-    price.grid(row=5, column=0, sticky="w")
+    receipt_name.grid(row=1, column=0, sticky="w", columnspan=5)
+    day.grid(row=2, column=0, sticky="w", columnspan=1)
+    month.grid(row=2, column=3, sticky="w", columnspan=1)
+    main_type.grid(row=3, column=0, sticky="w", columnspan=3)
+    sub_type.grid(row=4, column=0, sticky="w", columnspan=1)
+    price.grid(row=5, column=0, sticky="w", columnspan=1)
     kr.grid(row=5, column=3, sticky="w")
-    moms.grid(row=6, column=0, sticky="w")
+    moms.grid(row=6, column=0, sticky="w", columnspan=1)
     percent.grid(row=6, column=3,sticky="w")
 
     # Create a text entrybox for every data entry
     receipt_name_field = Entry(root)
-    day_field = Entry(root)
-    month_field = Entry(root)
-    main_type_field = Entry(root)
-    sub_type_field = Entry(root)
-    price_field = Entry(root)
-    moms_field = Entry(root)
+    day_field = Entry(root, width=10)
+    month_field = Entry(root, width=10)
+    main_type_field = Entry(root, width=20)
+    sub_type_field = Entry(root, width=10)
+    price_field = Entry(root, width=10)
+    moms_field = Entry(root, width=10)
 
     # Bind method to call for the focus function
     receipt_name_field.bind("<Return>", focus1)
@@ -137,13 +137,13 @@ if __name__ == "__main__":
     price_field.bind("<Return>", focus6)
 
     # Grid method to place entry
-    receipt_name_field.grid(row=1, column=3)
-    day_field.grid(row=2, column=1, sticky="w")
-    month_field.grid(row=2, column=4)
-    main_type_field.grid(row=3, column=3)
-    sub_type_field.grid(row=4, column=3)
-    price_field.grid(row=5, column=3)
-    moms_field.grid(row=6, column=3)
+    receipt_name_field.grid(row=1, column=5)
+    day_field.grid(row=2, column=1, sticky="w", ipadx=2)
+    month_field.grid(row=2, column=4, sticky="w", ipadx=5)
+    main_type_field.grid(row=3, column=3, sticky="w", ipadx=2, columnspan=2)
+    sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
+    price_field.grid(row=5, column=1, sticky="w", ipadx=2)
+    moms_field.grid(row=6, column=1, sticky="w", ipadx=2)
 
 
     excel()
