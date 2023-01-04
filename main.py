@@ -1,18 +1,7 @@
 from openpyxl import *
 from tkinter import *
-import math
 from openpyxl.styles import Alignment, Font, PatternFill
 
-class Receipt():
-    def __init__(self, day, month, main_type, sub_type, brutto, momsPercent):
-        self.day = day
-        self.month = month
-        self.main_type = main_type
-        self.sub_type = sub_type
-        self.brutto = brutto
-        self.moms = momsPercent
-        self.momsKr = self.brutto * (self.moms/100)
-        self.netto = self.brutto - self.momsKr
 
 path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx"
 wb = load_workbook(path)
@@ -112,19 +101,18 @@ def clear():
     else:
         current_month = month_field.get()
        # Set active sheet to current_month
+        wb.active = current_month
         excel()
 
         current_row = sheet.max_row
         current_column = sheet.max_column
         current_main_type = main_type_field.get()
         brutto = float(brutto_field.get())
-        momsPer = float(momsPercent_field.get())
-        momsKr = brutto*momsPer
-        netto = brutto-momsKr
+        momsPercent = momsPercent_field.get()
+        momsKr = float(brutto * (momsPercent / 100))
+        netto = brutto - momsKr
 
-        receipt = receipt_name_field.get()
-        receipt = Receipt(day_field.get(), month_field.get(), main_type_field.get(), sub_type_field.get(), brutto_field.get(), momsPercent_field.get())
-
+        # day.Receipt =
 
         sheet.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
         sheet.cell(row=current_row + 1, column=1).value = day_field.get()
