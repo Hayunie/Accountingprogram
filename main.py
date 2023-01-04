@@ -107,12 +107,11 @@ def clear():
         current_row = sheet.max_row
         current_column = sheet.max_column
         current_main_type = main_type_field.get()
+        current_sub_type = sub_type_field.get()
         brutto = float(brutto_field.get())
-        momsPercent = momsPercent_field.get()
+        momsPercent = float(momsPercent_field.get())
         momsKr = float(brutto * (momsPercent / 100))
-        netto = brutto - momsKr
-
-        # day.Receipt =
+        netto = float(brutto - momsKr)
 
         sheet.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
         sheet.cell(row=current_row + 1, column=1).value = day_field.get()
@@ -126,6 +125,7 @@ def clear():
             # Moms
             # Subtype
                 # Netto
+        if current_sub_type == ""
 
 
 
