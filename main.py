@@ -1,3 +1,5 @@
+import os
+
 from openpyxl import *
 from tkinter import *
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
@@ -183,7 +185,7 @@ if __name__ == "__main__":
     root.configure(background='light blue')
 
     # Set title of GUI Window
-    root.title("Bokföringsprogram")
+    root.title(os.path.basename(path))
     # Set the config of GUI window
     root.geometry("800x600")
 
