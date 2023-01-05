@@ -1,6 +1,7 @@
 from openpyxl import *
 from tkinter import *
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
+from openpyxl.utils import get_column_letter
 
 path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx"
 wb = load_workbook(path)
@@ -8,17 +9,25 @@ wb = load_workbook(path)
 def sheets():
     months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
               "Juli", "Augusti", "September", "November", "December"]
-    headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.nr', 'Inbetalningar', 'Utbetalningar', 'Utgående moms',
-               'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
-               'Ingående moms', 'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
-               'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
-               'Försäkringspremier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
-               'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
+    headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.\nnr', 'Inbetalningar', 'Utbetalningar', 'Utgående\nmoms',
+               'Inventarier\nförsäljning', 'Nötkreatur', 'Svin', 'Skog och\nskogs-\nprodukter', 'Övriga \ninbetalningar',
+               'Ingående\nmoms', 'Inventarier\ninköp', 'Inköp djur', 'Omkostnader\nskogen', 'Omkostnader\ndjurskötseln',
+               'Drivmedel,\neldnings och\nsmörolja', 'Underhåll\ninventarier', 'Kontors-\nkostnader,\nbokföring,\ntelefon',
+               'Försäkrings\npremier', 'Övriga\nutbetalningar', ' Underhåll\nnärings-\nfastigheter\nekonomi-\nbyggnader',
+               'Underhåll\nnärings-\nfastigheter\nbostäder\n(inkl moms)', 'Underhåll\nmark-\nanläggning']
     for m in range(len(months)):
         temp = months[m]
         sheets = wb.create_sheet(title=temp)
 
-        # Set column dimensions
+        # Set Dimensions
+        sheets.column_dimensions['A'].width = 5
+        sheets.column_dimensions['B'].width = 30
+        sheets.column_dimensions['C'].width = 7
+        column = 4
+        while column < 25:
+            i = get_column_letter(column)
+            sheets.column_dimensions[i].width = 15
+            column += 1
 
         # Merge cells
         sheets.merge_cells('A1:F1')
@@ -61,7 +70,7 @@ def sheets():
         for cell in sheets[1]:
             cell.alignment = Alignment(horizontal='center')
         for cell in sheets[2]:
-            cell.alignment = Alignment(horizontal='center')
+            cell.alignment = Alignment(horizontal='center', vertical='center', wrapText=True)
         sheets['C3'].alignment = Alignment(horizontal='center')
 
         # Background color
@@ -74,7 +83,7 @@ def sheets():
 
 def excel():
     thin = Side(border_style="thin", color="000000")
-    for row in sheets:
+    for row in wb.active:
         for cell in row:
             cell.border = Border(left=thin, right=thin)
 
