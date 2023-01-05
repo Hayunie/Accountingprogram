@@ -8,7 +8,12 @@ wb = load_workbook(path)
 def sheets():
     months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
               "Juli", "Augusti", "September", "November", "December"]
-    headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.nr', 'Inbetalningar', 'Utbetalningar']
+    headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.nr', 'Inbetalningar', 'Utbetalningar', 'Utgående moms',
+               'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
+               'Ingående moms', 'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
+               'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
+               'Försäkringspremier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
+               'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
     for m in range(len(months)):
         temp = months[m]
         sheets = wb.create_sheet(title=temp)
@@ -17,14 +22,24 @@ def sheets():
 
         # Merge cells
         sheets.merge_cells('A1:F1')
+        sheets.merge_cells('A3:B3')
+        sheets.merge_cells('G1:K1')
+        sheets.merge_cells('L1:X1')
 
         # Give the headers values
         sheets['A1'].value = "Fördelning av"
         sheets['A3'].value = "SUMMA"
         sheets['C3'].value = "---"
+        sheets['G1'].value = "Inbetalningar"
+        sheets['L1'].value = "Utbetalningar"
         for h in range(len(headers)):
             tempHead = headers[h]
             sheets.cell(row=2, column=h + 1).value = tempHead
+
+        # Formula for the total
+        for c in range(sheets.max_column - 3):
+            formula = '=SUM(D5:INDEX(D:D,ROWS(D:D)))'
+            sheets.cell(row=3, column=c + 4).value = formula
 
         # Set the font
         wb.font = Font(size=12)
@@ -55,12 +70,13 @@ def sheets():
             if x % 2 != 0:
                 c.fill = PatternFill(start_color="ADD8E6", fill_type="solid")
 
-        # Formula for the total
-        for c in range(sheets.max_column):
-            formula = '=SUM(D5:INDEX(D:D,ROWS(D:D)))'
-            sheets.cell(row=3, column=c + 3).value = formula
-
     del wb["Sheet1"]
+
+def excel():
+    thin = Side(border_style="thin", color="000000")
+    for row in sheets:
+        for cell in row:
+            cell.border = Border(left=thin, right=thin)
 
 # Set focus(event) for every field
 def focus1(event):
@@ -150,7 +166,7 @@ def clear():
 
 # def newFile()
 # sheets()
-# excel()
+
 
 # def openFile()
 
