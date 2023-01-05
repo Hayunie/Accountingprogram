@@ -15,6 +15,7 @@ def sheets():
                'Drivmedel,\neldnings och\nsmörolja', 'Underhåll\ninventarier', 'Kontors-\nkostnader,\nbokföring,\ntelefon',
                'Försäkrings\npremier', 'Övriga\nutbetalningar', ' Underhåll\nnärings-\nfastigheter\nekonomi-\nbyggnader',
                'Underhåll\nnärings-\nfastigheter\nbostäder\n(inkl moms)', 'Underhåll\nmark-\nanläggning']
+
     for m in range(len(months)):
         temp = months[m]
         sheets = wb.create_sheet(title=temp)
@@ -91,26 +92,20 @@ def excel():
 def focus1(event):
     day_field.focus_set()
 
-
 def focus2(event):
     month_field.focus_set()
-
 
 def focus3(event):
     main_type_field.focus_set()
 
-
 def focus4(event):
     sub_type_field.focus_set()
-
 
 def focus5(event):
     brutto_field.focus_set()
 
-
 def focus6(event):
     momsPercent_field.focus_set()
-
 
 def clear():
     # Clear every field in the GUI
@@ -122,7 +117,7 @@ def clear():
     brutto_field.delete(0, END)
     momsPercent_field.delete(0, END)
 
-    # def insert():
+def insert():
     # Take the data from the GUI and write to excel file
     if (receipt_name_field.get() == "" and
             day_field.get() == "" and
@@ -138,8 +133,8 @@ def clear():
         # Set active sheet to current_month
         wb.active = wb[current_month]
 
-        current_row = current_month.max_row
-        current_column = current_month.max_column
+        current_row = wb.active.max_row
+        current_column = wb.active.max_column
         current_main_type = main_type_field.get()
         current_sub_type = sub_type_field.get()
         brutto = float(brutto_field.get())
@@ -148,16 +143,16 @@ def clear():
         netto = float(brutto - momsKr)
         current_entries = current_row - 4
 
-        current_month.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
-        current_month.cell(row=current_row + 1, column=1).value = day_field.get()
-        current_month.cell(row=current_row + 1, column=3).value = current_entries
+        wb.active.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
+        wb.active.cell(row=current_row + 1, column=1).value = day_field.get()
+        wb.active.cell(row=current_row + 1, column=3).value = current_entries
         if current_main_type == "Inkomst":
-            current_month.cell(current_row + 1, column=3).value = brutto_field.get()
+            wb.active.cell(current_row + 1, column=3).value = brutto_field.get()
             # Moms
             # Subtype
             # Netto
         elif current_main_type == "Utgift":
-            current_month.cell(current_row + 1, column=4).value = brutto_field.get()
+            wb.active.cell(current_row + 1, column=4).value = brutto_field.get()
             # Moms
             # Subtype
             # Netto
