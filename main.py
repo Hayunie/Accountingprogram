@@ -1,12 +1,15 @@
 import os
 
+import openpyxl
 from openpyxl import *
 from tkinter import *
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx"
-wb = load_workbook(path)
+#wb = load_workbook(path)
+wb = openpyxl.Workbook()
+
 
 def sheets():
     months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
@@ -171,7 +174,20 @@ def insert():
 
 
 # def newFile()
+# wb = openpyxl.Workbook()
 # sheets()
+
+# Save file
+# def saveFile():
+    # if path == None:
+        # path = asksaveasfilename(initialfile='Untitled.xlsx', defaultextension=".xlsx",
+                                #filetypes=[("All Files", "*.*"),("Excel Documents","*.xlsx")])
+        # if path == "":
+            #path = None
+        # else:
+            ## Try to save the file
+            # file = open(path,"w")
+            # file.write(
 
 
 # def openFile()
