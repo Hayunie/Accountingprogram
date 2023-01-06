@@ -7,8 +7,8 @@ from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx"
-#wb = load_workbook(path)
-wb = openpyxl.Workbook()
+wb = load_workbook(path)
+#wb = openpyxl.Workbook()
 
 
 def sheets():
@@ -146,11 +146,12 @@ def insert():
         momsPercent = float(momsPercent_field.get())
         momsKr = float(brutto * (momsPercent / 100))
         netto = float(brutto - momsKr)
-        current_entries = current_row - 4
+        verif_nr =+ 1
+
 
         wb.active.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
         wb.active.cell(row=current_row + 1, column=1).value = day_field.get()
-        wb.active.cell(row=current_row + 1, column=3).value = current_entries
+        wb.active.cell(row=current_row + 1, column=3).value = verif_nr
         if current_main_type == "Inkomst":
             wb.active.cell(current_row + 1, column=3).value = brutto_field.get()
             # Moms
@@ -163,9 +164,6 @@ def insert():
             # Netto
         # if current_sub_type == "":
 
-    # Get method to return current text as strinf and write it into excel
-    # at particular location
-
     # wb.save("C:\\Users\\snoew\\Desktop\\demo.xlsx")
 
     # set focus at first first field with focus_set()
@@ -176,6 +174,9 @@ def insert():
 # def newFile()
 # wb = openpyxl.Workbook()
 # sheets()
+# file_name = input("Name of file: ")
+#path = file_name.xlsx
+#saveas(path)
 
 # Save file
 # def saveFile():
@@ -197,6 +198,17 @@ def insert():
 # Driver code
 if __name__ == "__main__":
     root = Tk()
+
+    main_type_headers = ['Inbetalningar', 'Utbetalningar']
+    sub_type_headers = ['Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
+               'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
+               'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
+               'Försäkrings premier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
+               'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
+
+    months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
+              "Juli", "Augusti", "September", "November", "December"]
+
     # Set background color
     root.configure(background='light blue')
 
@@ -255,7 +267,7 @@ if __name__ == "__main__":
     brutto_field.grid(row=5, column=1, sticky="w", ipadx=2)
     momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)
 
-    sheets()
+    # sheets()
     wb.save(path)
 
     # Save button
