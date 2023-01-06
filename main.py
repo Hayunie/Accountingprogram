@@ -13,7 +13,7 @@ wb = load_workbook(path)
 
 def sheets():
     months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
-              "Juli", "Augusti", "September", "November", "December"]
+              "Juli", "Augusti", "September", "Oktober", "November", "December"]
     headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.\nnr', 'Inbetalningar', 'Utbetalningar', 'Utgående\nmoms',
                'Inventarier\nförsäljning', 'Nötkreatur', 'Svin', 'Skog och\nskogs-\nprodukter', 'Övriga \ninbetalningar',
                'Ingående\nmoms', 'Inventarier\ninköp', 'Inköp djur', 'Omkostnader\nskogen', 'Omkostnader\ndjurskötseln',
@@ -98,18 +98,9 @@ def focus1(event):
     day_field.focus_set()
 
 def focus2(event):
-    month_field.focus_set()
-
-def focus3(event):
-    main_type_field.focus_set()
-
-def focus4(event):
-    sub_type_field.focus_set()
-
-def focus5(event):
     brutto_field.focus_set()
 
-def focus6(event):
+def focus3(event):
     momsPercent_field.focus_set()
 
 def clear():
@@ -117,7 +108,7 @@ def clear():
     receipt_name_field.delete(0, END)
     day_field.delete(0, END)
     month_field.delete(0, END)
-    main_type_field.delete(0, END)
+    var1.set(main_type_headers[0])
     sub_type_field.delete(0, END)
     brutto_field.delete(0, END)
     momsPercent_field.delete(0, END)
@@ -127,20 +118,18 @@ def insert():
     if (receipt_name_field.get() == "" and
             day_field.get() == "" and
             month_field.get() == "" and
-            main_type_field.get() == "" and
-            sub_type_field.get() == "" and
             brutto_field.get() == "" and
             momsPercent_field.get() == ""):
         print("empty input")
 
     else:
-        current_month = month_field.get()
+        current_month = receipt_entries.month_field.get()
         # Set active sheet to current_month
         wb.active = wb[current_month]
 
         current_row = wb.active.max_row
         current_column = wb.active.max_column
-        current_main_type = main_type_field.get()
+        current_main_type = var1.get()
         current_sub_type = sub_type_field.get()
         brutto = float(brutto_field.get())
         momsPercent = float(momsPercent_field.get())
@@ -199,15 +188,15 @@ def insert():
 if __name__ == "__main__":
     root = Tk()
 
-    main_type_headers = ['Inbetalningar', 'Utbetalningar']
-    sub_type_headers = ['Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
+    main_type_headers = ['----', 'Inbetalningar', 'Utbetalningar']
+    sub_type_headers = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
                'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
                'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
                'Försäkrings premier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
                'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
 
     months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
-              "Juli", "Augusti", "September", "November", "December"]
+              "Juli", "Augusti", "September", "Oktober", "November", "December"]
 
     # Set background color
     root.configure(background='light blue')
@@ -215,63 +204,163 @@ if __name__ == "__main__":
     # Set title of GUI Window
     root.title(os.path.basename(path))
     # Set the config of GUI window
-    root.geometry("800x600")
+    root.geometry("375x500")
 
-    # Create labels for every data entry
-    header = Label(root, text="Kvitto", font=14, bg="light blue")
-    receipt_name = Label(root, text="Köpare, Säljare, Varumärke etc.", font=12, bg="light blue")
-    day = Label(root, text="Dag", font=12, bg="light blue", compound="left")
-    month = Label(root, text="Månad", font=12, bg="light blue")
-    main_type = Label(root, text="Inkomst eller Utgift", font=12, bg="light blue")
-    sub_type = Label(root, text="Sort", font=12, bg="light blue")
-    brutto = Label(root, text="Pris", font=12, bg="light blue")
-    kr = Label(root, text="Kr", font=12, bg="light blue")
-    momsPercent = Label(root, text="Moms", font=12, bg="light blue")
-    percent = Label(root, text="%", font=12, bg="light blue")
+    def set_jan():
+        month = months_headers[0]
+        wb.active = 1
+        receipt_entries(month)
 
-    # Grid method to place widgets at respective positions
-    header.grid(row=0, column=3)
-    receipt_name.grid(row=1, column=0, sticky="w", columnspan=5)
-    day.grid(row=2, column=0, sticky="w", columnspan=1)
-    month.grid(row=2, column=3, sticky="w", columnspan=1)
-    main_type.grid(row=3, column=0, sticky="w", columnspan=3)
-    sub_type.grid(row=4, column=0, sticky="w", columnspan=1)
-    brutto.grid(row=5, column=0, sticky="w", columnspan=1)
-    kr.grid(row=5, column=3, sticky="w")
-    momsPercent.grid(row=6, column=0, sticky="w", columnspan=1)
-    percent.grid(row=6, column=3, sticky="w")
+    def set_feb():
+        month = months_headers[1]
+        wb.active = 2
+        receipt_entries(month)
+    def set_mar():
+        month = months_headers[2]
+        wb.active = 3
+        receipt_entries(month)
+    def set_apr():
+        month = months_headers[3]
+        wb.active = 4
+        receipt_entries(month)
+    def set_may():
+        month = months_headers[4]
+        wb.active = 5
+        receipt_entries(month)
+    def set_jun():
+        month = months_headers[5]
+        wb.active = 6
+        receipt_entries(month)
+    def set_jul():
+        month = months_headers[6]
+        wb.active = 7
+        receipt_entries(month)
+    def set_aug():
+        month = months_headers[7]
+        wb.active = 8
+        receipt_entries(month)
+    def set_sep():
+        month = months_headers[8]
+        wb.active = 9
+        receipt_entries(month)
+    def set_oct():
+        month = months_headers[9]
+        wb.active = 10
+        receipt_entries(month)
+    def set_nov():
+        month = months_headers[10]
+        wb.active = 11
+        receipt_entries(month)
+    def set_dec():
+        month = months_headers[11]
+        wb.active = 12
+        receipt_entries(month)
 
-    # Create a text entrybox for every data entry
-    receipt_name_field = Entry(root, font=12)
-    day_field = Entry(root, width=5, font=12)
-    month_field = Entry(root, width=5, font=12)
-    main_type_field = Entry(root, width=10, font=12)
-    sub_type_field = Entry(root, width=5, font=12)
-    brutto_field = Entry(root, width=5, font=12)
-    momsPercent_field = Entry(root, width=5, font=12)
+    def receipt_entries(month):
+        # Set the config of GUI window
+        root.geometry("800x600")
 
-    # Bind method to call for the focus function
-    receipt_name_field.bind("<Return>", focus1)
-    day_field.bind("<Return>", focus2)
-    month_field.bind("<Return>", focus3)
-    main_type_field.bind("<Return>", focus4)
-    sub_type_field.bind("<Return>", focus5)
-    brutto_field.bind("<Return>", focus6)
+        # Create labels for every data entry
+        header = Label(root, text=month, font=14, bg="light blue")
 
-    # Grid method to place entry
-    receipt_name_field.grid(row=1, column=5)
-    day_field.grid(row=2, column=1, sticky="w", ipadx=2)
-    month_field.grid(row=2, column=4, sticky="w", ipadx=2)
-    main_type_field.grid(row=3, column=3, sticky="w", ipadx=6, columnspan=2)
-    sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
-    brutto_field.grid(row=5, column=1, sticky="w", ipadx=2)
-    momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)
+        receipt_name = Label(root, text="Köpare, Säljare, Varumärke etc.", font=12, bg="light blue")
+        day = Label(root, text="Dag", font=12, bg="light blue", compound="left")
+        month = Label(root, text="Månad", font=12, bg="light blue")
+        main_type = Label(root, text="Inkomst eller Utgift", font=12, bg="light blue")
+        sub_type = Label(root, text="Sort", font=12, bg="light blue")
+        brutto = Label(root, text="Pris", font=12, bg="light blue")
+        kr = Label(root, text="Kr", font=12, bg="light blue")
+        momsPercent = Label(root, text="Moms", font=12, bg="light blue")
+        percent = Label(root, text="%", font=12, bg="light blue")
 
-    # sheets()
-    wb.save(path)
+        # Grid method to place widgets at respective positions
+        header.grid(row=0, column=3)
+        receipt_name.grid(row=1, column=0, sticky="w", columnspan=5)
+        day.grid(row=2, column=0, sticky="w", columnspan=1)
+        month.grid(row=2, column=3, sticky="w", columnspan=1)
+        main_type.grid(row=3, column=0, sticky="w", columnspan=3)
+        sub_type.grid(row=4, column=0, sticky="w", columnspan=1)
+        brutto.grid(row=5, column=0, sticky="w", columnspan=1)
+        kr.grid(row=5, column=3, sticky="w")
+        momsPercent.grid(row=6, column=0, sticky="w", columnspan=1)
+        percent.grid(row=6, column=3, sticky="w")
 
-    # Save button
-    save = Button(root, text="Spara", bg="Yellow")
-    save.grid(row=7, column=3)
+        # Create a text entrybox for every data entry
+        receipt_name_field = Entry(root, font=12)
+        day_field = Entry(root, width=5, font=12)
+        month_field = Entry(root, width=5, font=12)
+        sub_type_field = Entry(root, width=5, font=12)
+        brutto_field = Entry(root, width=5, font=12)
+        momsPercent_field = Entry(root, width=5, font=12)
+
+        # Dropdown menus
+
+        var1 = StringVar()
+        var1.set(main_type_headers[0])
+        drop1 = OptionMenu(root, var1, *main_type_headers)
+        #drop1.pack()
+        drop1.config(width=15, font=12)
+        drop1.grid(row=3, column=4, sticky="w", columnspan=2)
+
+
+        var2 = StringVar()
+        var2.set(sub_type_headers[0])
+
+
+        # Bind method to call for the focus function
+        receipt_name_field.bind("<Return>", focus1)
+        day_field.bind("<Return>", focus2)
+        brutto_field.bind("<Return>", focus3)
+
+        # Grid method to place entry
+        receipt_name_field.grid(row=1, column=5)
+        day_field.grid(row=2, column=1, sticky="w", ipadx=2)
+        month_field.grid(row=2, column=4, sticky="w", ipadx=2)
+        sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
+        brutto_field.grid(row=5, column=1, sticky="w", ipadx=2)
+        momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)
+
+        # sheets()
+        wb.save(path)
+
+        # Save button
+        save = Button(root, text="Spara", bg="Yellow")
+        save.grid(row=7, column=3)
+        # Back Button
+        back = Button(root, text="Tillbaka", bg ="Pink")
+        back.grid(row=7, column=0)
+
+
+    choose_month = Label(root, text="Välj månad", font=16, bg="light blue")
+    choose_month.grid(row=0, column=1)
+    empty = Label(root, text="", bg="light blue", width=15)
+    empty.grid(row=0, column=0)
+
+    jan = Button(root, text=months_headers[0], font=14, width=15, command=set_jan)
+    feb = Button(root, text=months_headers[1], font=14, width=15, command=set_feb)
+    mar = Button(root, text=months_headers[2], font=14, width=15, command=set_mar)
+    apr = Button(root, text=months_headers[3], font=14, width=15, command=set_apr)
+    may = Button(root, text=months_headers[4], font=14, width=15, command=set_may)
+    jun = Button(root, text=months_headers[5], font=14, width=15, command=set_jun)
+    jul = Button(root, text=months_headers[6], font=14, width=15, command=set_jul)
+    aug = Button(root, text=months_headers[7], font=14, width=15, command=set_aug)
+    sep = Button(root, text=months_headers[8], font=14, width=15, command=set_sep)
+    oct = Button(root, text=months_headers[9], font=14, width=15, command=set_oct)
+    nov = Button(root, text=months_headers[10], font=14, width=15, command=set_nov)
+    dec = Button(root, text=months_headers[11], font=14, width=15, command=set_dec)
+
+    jan.grid(row=1, column=1)
+    feb.grid(row=2, column=1)
+    mar.grid(row=3, column=1)
+    apr.grid(row=4, column=1)
+    may.grid(row=5, column=1)
+    jun.grid(row=6, column=1)
+    jul.grid(row=7, column=1)
+    aug.grid(row=8, column=1)
+    sep.grid(row=9, column=1)
+    oct.grid(row=10, column=1)
+    nov.grid(row=11, column=1)
+    dec.grid(row=12, column=1)
+
 
     root.mainloop()
