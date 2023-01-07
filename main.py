@@ -186,31 +186,10 @@ def insert():
 
 # Driver code
 if __name__ == "__main__":
-    root = Tk()
-
-    main_type_headers = ['----', 'Inbetalningar', 'Utbetalningar']
-    sub_type_headers = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
-               'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
-               'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
-               'Försäkrings premier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
-               'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
-
-    months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
-              "Juli", "Augusti", "September", "Oktober", "November", "December"]
-
-    # Set background color
-    root.configure(background='light blue')
-
-    # Set title of GUI Window
-    root.title(os.path.basename(path))
-    # Set the config of GUI window
-    root.geometry("375x500")
-
     def set_jan():
         month = months_headers[0]
         wb.active = 1
         receipt_entries(month)
-
     def set_feb():
         month = months_headers[1]
         wb.active = 2
@@ -256,26 +235,64 @@ if __name__ == "__main__":
         wb.active = 12
         receipt_entries(month)
 
+    class Default_Label( Label):
+        def __init__(self, text, *args, **kwargs):
+            super().__init__()
+            self['bg'] = 'light blue'
+            self['font'] = 12
+            self['text'] = text
+
+    class Default_Button(Button):
+        def __init__(self, text, command, *args, **kwargs):
+            super().__init__()
+            self['text'] = text
+            self['command'] = command
+            self['font'] = 14
+            self['width'] = 15
+
+    root = Tk()
+
+    main_type_headers = ['----', 'Inbetalningar', 'Utbetalningar']
+    sub_type_headers = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
+               'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
+               'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
+               'Försäkrings premier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
+               'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
+
+    months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
+              "Juli", "Augusti", "September", "Oktober", "November", "December"]
+
+    # Set background color
+    root.configure(background='light blue')
+
+    # Set title of GUI Window
+    root.title(os.path.basename(path))
+    # Set the config of GUI window
+    root.geometry("375x500")
+    # Create frame
+
     def receipt_entries(month):
+
         # Set the config of GUI window
         root.geometry("800x600")
 
         # Create labels for every data entry
-        header = Label(root, text=month, font=14, bg="light blue")
+        header = Default_Label(month)
 
-        receipt_name = Label(root, text="Köpare, Säljare, Varumärke etc.", font=12, bg="light blue")
-        day = Label(root, text="Dag", font=12, bg="light blue", compound="left")
-        month = Label(root, text="Månad", font=12, bg="light blue")
-        main_type = Label(root, text="Inkomst eller Utgift", font=12, bg="light blue")
-        sub_type = Label(root, text="Sort", font=12, bg="light blue")
-        brutto = Label(root, text="Pris", font=12, bg="light blue")
-        kr = Label(root, text="Kr", font=12, bg="light blue")
-        momsPercent = Label(root, text="Moms", font=12, bg="light blue")
-        percent = Label(root, text="%", font=12, bg="light blue")
+        receipt_name = Default_Label("Köpare, Säljare, Varumärke etc.")
+        receipt_name.pack(anchor='w')
+        day = Default_Label("Dag")
+        month = Default_Label("Månad")
+        main_type = Default_Label("Inkomst eller Utgift")
+        sub_type = Default_Label("Sort")
+        brutto = Default_Label("Pris")
+        kr = Default_Label("Kr")
+        momsPercent = Default_Label("Moms")
+        percent = Default_Label("%")
 
         # Grid method to place widgets at respective positions
-        header.grid(row=0, column=3)
-        receipt_name.grid(row=1, column=0, sticky="w", columnspan=5)
+        """header.grid(row=0, column=3)
+        #receipt_name.grid(row=1, column=0, sticky="w", columnspan=5)
         day.grid(row=2, column=0, sticky="w", columnspan=1)
         month.grid(row=2, column=3, sticky="w", columnspan=1)
         main_type.grid(row=3, column=0, sticky="w", columnspan=3)
@@ -283,7 +300,7 @@ if __name__ == "__main__":
         brutto.grid(row=5, column=0, sticky="w", columnspan=1)
         kr.grid(row=5, column=3, sticky="w")
         momsPercent.grid(row=6, column=0, sticky="w", columnspan=1)
-        percent.grid(row=6, column=3, sticky="w")
+        percent.grid(row=6, column=3, sticky="w")"""
 
         # Create a text entrybox for every data entry
         receipt_name_field = Entry(root, font=12)
@@ -300,7 +317,7 @@ if __name__ == "__main__":
         drop1 = OptionMenu(root, var1, *main_type_headers)
         #drop1.pack()
         drop1.config(width=15, font=12)
-        drop1.grid(row=3, column=4, sticky="w", columnspan=2)
+        #drop1.grid(row=3, column=4, sticky="w", columnspan=2)
 
 
         var2 = StringVar()
@@ -313,22 +330,24 @@ if __name__ == "__main__":
         brutto_field.bind("<Return>", focus3)
 
         # Grid method to place entry
-        receipt_name_field.grid(row=1, column=5)
+        """receipt_name_field.grid(row=1, column=5)
         day_field.grid(row=2, column=1, sticky="w", ipadx=2)
         month_field.grid(row=2, column=4, sticky="w", ipadx=2)
         sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
         brutto_field.grid(row=5, column=1, sticky="w", ipadx=2)
-        momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)
+        momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)"""
 
         # sheets()
         wb.save(path)
 
         # Save button
         save = Button(root, text="Spara", bg="Yellow")
-        save.grid(row=7, column=3)
+        #save.grid(row=7, column=3)
         # Back Button
         back = Button(root, text="Tillbaka", bg ="Pink")
-        back.grid(row=7, column=0)
+        #back.grid(row=7, column=0)
+
+
 
 
     choose_month = Label(root, text="Välj månad", font=16, bg="light blue")
