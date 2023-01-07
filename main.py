@@ -268,40 +268,32 @@ if __name__ == "__main__":
             widget.destroy()
 
     def receipt_entries(month):
-
         clearFrame()
 
         # Set the config of GUI window
         root.geometry("800x600")
 
         # Create labels for every data entry
-        Default_Label(month).pack(padx=5, pady=5)
-        Default_Label('Köpare, Säljare, Varumärke etc.').pack(padx=5, pady=5)
-        Default_Label('Dag').pack(padx=5, pady=5)
-        Default_Label("Månad").pack(padx=5, pady=5)
-        Default_Label("Inkomst eller Utgift").pack(padx=5, pady=5)
-        Default_Label("Sort").pack(padx=5, pady=5)
-        Default_Label("Pris").pack(padx=5, pady=5)
-        Default_Label("Kr").pack(padx=5, pady=5)
-        Default_Label("Moms").pack(padx=5, pady=5)
-        Default_Label("%").pack(padx=5, pady=5)
+        Default_Label(frame, text=month).pack(padx=5, pady=5)
+        Default_Label(frame, text='Köpare, Säljare, Varumärke etc.').pack(padx=5, pady=5)
+        Default_Label(frame, text='Dag').pack(padx=5, pady=5)
+        Default_Label(frame, text="Månad").pack(padx=5, pady=5)
+        Default_Label(frame, text="Inkomst eller Utgift").pack(padx=5, pady=5)
+        Default_Label(frame, text="Sort").pack(padx=5, pady=5)
+        Default_Label(frame, text="Pris").pack(padx=5, pady=5)
+        Default_Label(frame, text="Kr").pack(padx=5, pady=5)
+        Default_Label(frame, text="Moms").pack(padx=5, pady=5)
+        Default_Label(frame, text="%").pack(padx=5, pady=5)
 
         # Create a text entrybox for every data entry
-        receipt_name_field = Entry(root, font=12).pack(padx=5, pady=5)
-        day_field = Entry(root, width=5, font=12).pack(padx=5, pady=5)
-        brutto_field = Entry(root, width=5, font=12).pack(padx=5, pady=5)
-        momsPercent_field = Entry(root, width=5, font=12).pack(padx=5, pady=5)
+        receipt_name_field = Entry(frame, font=12).pack(padx=5, pady=5)
+        day_field = Entry(frame, width=5, font=12).pack(padx=5, pady=5)
+        brutto_field = Entry(frame, width=5, font=12).pack(padx=5, pady=5)
+        momsPercent_field = Entry(frame, width=5, font=12).pack(padx=5, pady=5)
 
         # Dropdown menus
 
-        var1 = StringVar()
-        var1.set(main_type_headers[0])
-        drop1 = OptionMenu(root, var1, *main_type_headers).pack()
-        drop1.config(width=15, font=12)
-        #drop1.grid(row=3, column=4, sticky="w", columnspan=2)
 
-        var2 = StringVar()
-        var2.set(sub_type_headers[0])
 
 
         # Bind method to call for the focus function
@@ -309,23 +301,16 @@ if __name__ == "__main__":
         day_field.bind("<Return>", focus2)
         brutto_field.bind("<Return>", focus3)
 
-        # Grid method to place entry
-        """receipt_name_field.grid(row=1, column=5)
-        day_field.grid(row=2, column=1, sticky="w", ipadx=2)
-        month_field.grid(row=2, column=4, sticky="w", ipadx=2)
-        sub_type_field.grid(row=4, column=1, sticky="w", ipadx=2)
-        brutto_field.grid(row=5, column=1, sticky="w", ipadx=2)
-        momsPercent_field.grid(row=6, column=1, sticky="w", ipadx=2)"""
 
         # sheets()
         wb.save(path)
 
         # Save button
-        save = Button(root, text="Spara", bg="Yellow")
-        #save.grid(row=7, column=3)
+        Button(root, text="Spara", bg="Yellow")
+
         # Back Button
-        back = Button(root, text="Tillbaka", bg ="Pink")
-        #back.grid(row=7, column=0)
+        Button(root, text="Tillbaka", bg ="Pink")
+
     class Default_Label(Label):
         def __init__(self, *args, **kwargs):
             Label.__init__(self, *args, **kwargs)
