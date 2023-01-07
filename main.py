@@ -235,26 +235,14 @@ if __name__ == "__main__":
         wb.active = 12
         receipt_entries(month)
 
-    class Default_Label( Label):
-        def __init__(self, text, *args, **kwargs):
-            super().__init__()
-            self['bg'] = 'light blue'
-            self['font'] = 12
-            self['text'] = text
 
-    class Default_Button(Button):
-        def __init__(self, text, command, *args, **kwargs):
-            super().__init__()
-            self['text'] = text
-            self['command'] = command
-            self['font'] = 14
-            self['width'] = 15
 
     root = Tk()
 
     main_type_headers = ['----', 'Inbetalningar', 'Utbetalningar']
-    sub_type_headers = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter', 'Övriga inbetalningar',
-               'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
+    sub_type_headers1 = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter',
+                         'Övriga inbetalningar']
+    sub_type_headers2 = ['----', 'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
                'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
                'Försäkrings premier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
                'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
@@ -266,9 +254,10 @@ if __name__ == "__main__":
     # Set title of GUI Window
     root.title(os.path.basename(path))
     # Set the config of GUI window
-    root.geometry("375x500")
+    root.geometry("800x600")
 
     root.configure(bg='light blue')
+
     # Create frame
     frame = Frame(root)
     frame.pack(side="top", expand=True, fill="both")
@@ -286,48 +275,30 @@ if __name__ == "__main__":
         root.geometry("800x600")
 
         # Create labels for every data entry
-        header = Default_Label(month)
-
-        receipt_name = Default_Label("Köpare, Säljare, Varumärke etc.")
-        receipt_name.pack(anchor='w')
-        day = Default_Label("Dag")
-        month = Default_Label("Månad")
-        main_type = Default_Label("Inkomst eller Utgift")
-        sub_type = Default_Label("Sort")
-        brutto = Default_Label("Pris")
-        kr = Default_Label("Kr")
-        momsPercent = Default_Label("Moms")
-        percent = Default_Label("%")
-
-        # Grid method to place widgets at respective positions
-        """header.grid(row=0, column=3)
-        #receipt_name.grid(row=1, column=0, sticky="w", columnspan=5)
-        day.grid(row=2, column=0, sticky="w", columnspan=1)
-        month.grid(row=2, column=3, sticky="w", columnspan=1)
-        main_type.grid(row=3, column=0, sticky="w", columnspan=3)
-        sub_type.grid(row=4, column=0, sticky="w", columnspan=1)
-        brutto.grid(row=5, column=0, sticky="w", columnspan=1)
-        kr.grid(row=5, column=3, sticky="w")
-        momsPercent.grid(row=6, column=0, sticky="w", columnspan=1)
-        percent.grid(row=6, column=3, sticky="w")"""
+        Default_Label(month).pack(padx=5, pady=5)
+        Default_Label('Köpare, Säljare, Varumärke etc.').pack(padx=5, pady=5)
+        Default_Label('Dag').pack(padx=5, pady=5)
+        Default_Label("Månad").pack(padx=5, pady=5)
+        Default_Label("Inkomst eller Utgift").pack(padx=5, pady=5)
+        Default_Label("Sort").pack(padx=5, pady=5)
+        Default_Label("Pris").pack(padx=5, pady=5)
+        Default_Label("Kr").pack(padx=5, pady=5)
+        Default_Label("Moms").pack(padx=5, pady=5)
+        Default_Label("%").pack(padx=5, pady=5)
 
         # Create a text entrybox for every data entry
-        receipt_name_field = Entry(root, font=12)
-        day_field = Entry(root, width=5, font=12)
-        month_field = Entry(root, width=5, font=12)
-        sub_type_field = Entry(root, width=5, font=12)
-        brutto_field = Entry(root, width=5, font=12)
-        momsPercent_field = Entry(root, width=5, font=12)
+        receipt_name_field = Entry(root, font=12).pack(padx=5, pady=5)
+        day_field = Entry(root, width=5, font=12).pack(padx=5, pady=5)
+        brutto_field = Entry(root, width=5, font=12).pack(padx=5, pady=5)
+        momsPercent_field = Entry(root, width=5, font=12).pack(padx=5, pady=5)
 
         # Dropdown menus
 
         var1 = StringVar()
         var1.set(main_type_headers[0])
-        drop1 = OptionMenu(root, var1, *main_type_headers)
-        #drop1.pack()
+        drop1 = OptionMenu(root, var1, *main_type_headers).pack()
         drop1.config(width=15, font=12)
         #drop1.grid(row=3, column=4, sticky="w", columnspan=2)
-
 
         var2 = StringVar()
         var2.set(sub_type_headers[0])
@@ -355,20 +326,31 @@ if __name__ == "__main__":
         # Back Button
         back = Button(root, text="Tillbaka", bg ="Pink")
         #back.grid(row=7, column=0)
+    class Default_Label(Label):
+        def __init__(self, *args, **kwargs):
+            Label.__init__(self, *args, **kwargs)
+            self['bg'] = 'light blue'
+            self['font'] = 12
 
-    Default_Label('Välj månad').pack(padx=5,pady=5)
 
-    Default_Button(months_headers[0], set_jan).pack(padx=5, pady=5)
-    Default_Button(months_headers[1], set_feb).pack(padx=5, pady=5)
-    Default_Button(months_headers[2], set_mar).pack(padx=5, pady=5)
-    Default_Button(months_headers[3], set_apr).pack(padx=5, pady=5)
-    Default_Button(months_headers[4], set_may).pack(padx=5, pady=5)
-    Default_Button(months_headers[5], set_jun).pack(padx=5, pady=5)
-    Default_Button(months_headers[6], set_jul).pack(padx=5, pady=5)
-    Default_Button(months_headers[7], set_aug).pack(padx=5, pady=5)
-    Default_Button(months_headers[8], set_sep).pack(padx=5, pady=5)
-    Default_Button(months_headers[9], set_oct).pack(padx=5, pady=5)
-    Default_Button(months_headers[10], set_nov).pack(padx=5, pady=5)
-    Default_Button(months_headers[11], set_dec).pack(padx=5, pady=5)
+    class Default_Button(Button):
+        def __init__(self, *args, **kwargs):
+            Button.__init__(self, *args, **kwargs)
+            self['font'] = 14
+            self['width'] = 15
+
+    Default_Label(frame, text='Välj månad').pack(side="top", pady=5)
+    Default_Button(frame, text= months_headers[0], command= set_jan).pack(pady=5)
+    Default_Button(frame, text= months_headers[1], command= set_feb).pack(pady=5)
+    Default_Button(frame, text= months_headers[2], command= set_mar).pack(pady=5)
+    Default_Button(frame, text= months_headers[3], command= set_apr).pack(pady=5)
+    Default_Button(frame, text= months_headers[4], command= set_may).pack(pady=5)
+    Default_Button(frame, text= months_headers[5], command= set_jun).pack(pady=5)
+    Default_Button(frame, text= months_headers[6], command= set_jul).pack(pady=5)
+    Default_Button(frame, text= months_headers[7], command= set_aug).pack(pady=5)
+    Default_Button(frame, text= months_headers[8], command= set_sep).pack(pady=5)
+    Default_Button(frame, text= months_headers[9], command= set_oct).pack(pady=5)
+    Default_Button(frame, text= months_headers[10], command= set_nov).pack(pady=5)
+    Default_Button(frame, text= months_headers[11], command= set_dec).pack(pady=5)
 
     root.mainloop()
