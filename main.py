@@ -270,6 +270,8 @@ if __name__ == "__main__":
     # Set the config of GUI window
     root.geometry("375x500")
     # Create frame
+    frame = Frame(root)
+    frame.pack(side="top", expand=True, fill="both")
 
     def receipt_entries(month):
 
@@ -351,9 +353,9 @@ if __name__ == "__main__":
 
 
     choose_month = Label(root, text="Välj månad", font=16, bg="light blue")
-    choose_month.grid(row=0, column=1)
+    #choose_month.grid(row=0, column=1)
     empty = Label(root, text="", bg="light blue", width=15)
-    empty.grid(row=0, column=0)
+    #empty.grid(row=0, column=0)
 
     jan = Button(root, text=months_headers[0], font=14, width=15, command=set_jan)
     feb = Button(root, text=months_headers[1], font=14, width=15, command=set_feb)
@@ -368,7 +370,7 @@ if __name__ == "__main__":
     nov = Button(root, text=months_headers[10], font=14, width=15, command=set_nov)
     dec = Button(root, text=months_headers[11], font=14, width=15, command=set_dec)
 
-    jan.grid(row=1, column=1)
+    """jan.grid(row=1, column=1)
     feb.grid(row=2, column=1)
     mar.grid(row=3, column=1)
     apr.grid(row=4, column=1)
@@ -379,7 +381,7 @@ if __name__ == "__main__":
     sep.grid(row=9, column=1)
     oct.grid(row=10, column=1)
     nov.grid(row=11, column=1)
-    dec.grid(row=12, column=1)
+    dec.grid(row=12, column=1)"""
 
 
     root.mainloop()
