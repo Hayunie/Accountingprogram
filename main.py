@@ -254,42 +254,58 @@ if __name__ == "__main__":
     # Set title of GUI Window
     root.title(os.path.basename(path))
     # Set the config of GUI window
-    root.geometry("800x600")
+    root.geometry("500x550")
 
     root.configure(bg='light blue')
 
     # Create frame
-    frame = Frame(root)
-    frame.pack(side="top", expand=True, fill="both")
-    frame.configure(bg='light blue')
+    mainframe = Frame(root, bg='light blue')
+    mainframe.pack(expand=True, fill="both")
+
+    frame2 = Frame(root, bg='light blue')
+    frame2.pack(expand=True, fill="both")
+
+    frame3 = Frame(root, bg='light blue')
+    frame3.pack(expand=True, fill="both")
+
+    frame4 = Frame(root, bg='light blue')
+    frame4.pack(expand=True, fill="both")
 
     def clearFrame():
-        for widget in frame.winfo_children():
+        for widget in mainframe.winfo_children():
             widget.destroy()
 
     def receipt_entries(month):
         clearFrame()
 
         # Set the config of GUI window
-        root.geometry("800x600")
+        root.geometry("500x550")
 
         # Create labels for every data entry
-        Default_Label(frame, text=month).pack(padx=5, pady=5)
-        Default_Label(frame, text='Köpare, Säljare, Varumärke etc.').pack(padx=5, pady=5)
-        Default_Label(frame, text='Dag').pack(padx=5, pady=5)
-        Default_Label(frame, text="Månad").pack(padx=5, pady=5)
-        Default_Label(frame, text="Inkomst eller Utgift").pack(padx=5, pady=5)
-        Default_Label(frame, text="Sort").pack(padx=5, pady=5)
-        Default_Label(frame, text="Pris").pack(padx=5, pady=5)
-        Default_Label(frame, text="Kr").pack(padx=5, pady=5)
-        Default_Label(frame, text="Moms").pack(padx=5, pady=5)
-        Default_Label(frame, text="%").pack(padx=5, pady=5)
+        Default_Label(mainframe, text=month).pack(padx=5, pady=5, side=TOP, anchor='n')
+        v = IntVar()
+        Radiobutton(mainframe, text="Inbetalning", font=14, variable=v, value=1, bg='light blue').pack(side=TOP, anchor='n', padx=50)
+        Radiobutton(mainframe, text="Utbetalning", font=14, variable=v, value=2, bg='light blue').pack(side=TOP, anchor='n', padx=10)
+
+        Default_Label(frame2, text='Köpare, Säljare, Varumärke etc.').pack(padx=5, pady=5, anchor='nw')
+        receipt_name_field = Entry(frame2, font=12).pack(padx=5, pady=5)
+        Default_Label(frame2, text='Dag').pack(side=LEFT, anchor='nw', padx=5, pady=5)
+        day_field = Entry(frame2, width=5, font=12).pack(side=LEFT, anchor='nw', padx=5, pady=5)
+
+        Default_Label(frame3, text="Sort").pack(anchor='nw', padx=5, pady=5)
+        Default_Label(frame3, text="Pris").pack(anchor='nw', padx=5, pady=5)
+        brutto_field = Entry(frame3, width=5, font=12).pack(padx=5, pady=5)
+        Default_Label(frame3, text="Kr").pack(padx=5, pady=5)
+
+        Default_Label(frame4, text="Moms").pack(anchor='nw', padx=5, pady=5)
+        momsPercent_field = Entry(frame4, width=5, font=12).pack(padx=5, pady=5)
+        Default_Label(frame4, text="%").pack(padx=5, pady=5)
 
         # Create a text entrybox for every data entry
-        receipt_name_field = Entry(frame, font=12).pack(padx=5, pady=5)
-        day_field = Entry(frame, width=5, font=12).pack(padx=5, pady=5)
-        brutto_field = Entry(frame, width=5, font=12).pack(padx=5, pady=5)
-        momsPercent_field = Entry(frame, width=5, font=12).pack(padx=5, pady=5)
+
+
+
+
 
         # Dropdown menus
 
@@ -324,18 +340,18 @@ if __name__ == "__main__":
             self['font'] = 14
             self['width'] = 15
 
-    Default_Label(frame, text='Välj månad').pack(side="top", pady=5)
-    Default_Button(frame, text= months_headers[0], command= set_jan).pack(pady=5)
-    Default_Button(frame, text= months_headers[1], command= set_feb).pack(pady=5)
-    Default_Button(frame, text= months_headers[2], command= set_mar).pack(pady=5)
-    Default_Button(frame, text= months_headers[3], command= set_apr).pack(pady=5)
-    Default_Button(frame, text= months_headers[4], command= set_may).pack(pady=5)
-    Default_Button(frame, text= months_headers[5], command= set_jun).pack(pady=5)
-    Default_Button(frame, text= months_headers[6], command= set_jul).pack(pady=5)
-    Default_Button(frame, text= months_headers[7], command= set_aug).pack(pady=5)
-    Default_Button(frame, text= months_headers[8], command= set_sep).pack(pady=5)
-    Default_Button(frame, text= months_headers[9], command= set_oct).pack(pady=5)
-    Default_Button(frame, text= months_headers[10], command= set_nov).pack(pady=5)
-    Default_Button(frame, text= months_headers[11], command= set_dec).pack(pady=5)
+    Default_Label(mainframe, text='Välj månad').pack(side="top", pady=5)
+    Default_Button(mainframe, text= months_headers[0], command= set_jan).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[1], command= set_feb).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[2], command= set_mar).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[3], command= set_apr).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[4], command= set_may).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[5], command= set_jun).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[6], command= set_jul).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[7], command= set_aug).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[8], command= set_sep).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[9], command= set_oct).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[10], command= set_nov).pack(pady=5)
+    Default_Button(mainframe, text= months_headers[11], command= set_dec).pack(pady=5)
 
     root.mainloop()
