@@ -262,18 +262,25 @@ if __name__ == "__main__":
     months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
               "Juli", "Augusti", "September", "Oktober", "November", "December"]
 
-    # Set background color
-    root.configure(background='light blue')
 
     # Set title of GUI Window
     root.title(os.path.basename(path))
     # Set the config of GUI window
     root.geometry("375x500")
+
+    root.configure(bg='light blue')
     # Create frame
     frame = Frame(root)
     frame.pack(side="top", expand=True, fill="both")
+    frame.configure(bg='light blue')
+
+    def clearFrame():
+        for widget in frame.winfo_children():
+            widget.destroy()
 
     def receipt_entries(month):
+
+        clearFrame()
 
         # Set the config of GUI window
         root.geometry("800x600")
@@ -349,39 +356,19 @@ if __name__ == "__main__":
         back = Button(root, text="Tillbaka", bg ="Pink")
         #back.grid(row=7, column=0)
 
+    Default_Label('Välj månad').pack(padx=5,pady=5)
 
-
-
-    choose_month = Label(root, text="Välj månad", font=16, bg="light blue")
-    #choose_month.grid(row=0, column=1)
-    empty = Label(root, text="", bg="light blue", width=15)
-    #empty.grid(row=0, column=0)
-
-    jan = Button(root, text=months_headers[0], font=14, width=15, command=set_jan)
-    feb = Button(root, text=months_headers[1], font=14, width=15, command=set_feb)
-    mar = Button(root, text=months_headers[2], font=14, width=15, command=set_mar)
-    apr = Button(root, text=months_headers[3], font=14, width=15, command=set_apr)
-    may = Button(root, text=months_headers[4], font=14, width=15, command=set_may)
-    jun = Button(root, text=months_headers[5], font=14, width=15, command=set_jun)
-    jul = Button(root, text=months_headers[6], font=14, width=15, command=set_jul)
-    aug = Button(root, text=months_headers[7], font=14, width=15, command=set_aug)
-    sep = Button(root, text=months_headers[8], font=14, width=15, command=set_sep)
-    oct = Button(root, text=months_headers[9], font=14, width=15, command=set_oct)
-    nov = Button(root, text=months_headers[10], font=14, width=15, command=set_nov)
-    dec = Button(root, text=months_headers[11], font=14, width=15, command=set_dec)
-
-    """jan.grid(row=1, column=1)
-    feb.grid(row=2, column=1)
-    mar.grid(row=3, column=1)
-    apr.grid(row=4, column=1)
-    may.grid(row=5, column=1)
-    jun.grid(row=6, column=1)
-    jul.grid(row=7, column=1)
-    aug.grid(row=8, column=1)
-    sep.grid(row=9, column=1)
-    oct.grid(row=10, column=1)
-    nov.grid(row=11, column=1)
-    dec.grid(row=12, column=1)"""
-
+    Default_Button(months_headers[0], set_jan).pack(padx=5, pady=5)
+    Default_Button(months_headers[1], set_feb).pack(padx=5, pady=5)
+    Default_Button(months_headers[2], set_mar).pack(padx=5, pady=5)
+    Default_Button(months_headers[3], set_apr).pack(padx=5, pady=5)
+    Default_Button(months_headers[4], set_may).pack(padx=5, pady=5)
+    Default_Button(months_headers[5], set_jun).pack(padx=5, pady=5)
+    Default_Button(months_headers[6], set_jul).pack(padx=5, pady=5)
+    Default_Button(months_headers[7], set_aug).pack(padx=5, pady=5)
+    Default_Button(months_headers[8], set_sep).pack(padx=5, pady=5)
+    Default_Button(months_headers[9], set_oct).pack(padx=5, pady=5)
+    Default_Button(months_headers[10], set_nov).pack(padx=5, pady=5)
+    Default_Button(months_headers[11], set_dec).pack(padx=5, pady=5)
 
     root.mainloop()
