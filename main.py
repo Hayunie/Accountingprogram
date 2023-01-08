@@ -390,14 +390,34 @@ if __name__ == "__main__":
                 current_row = wb.active.max_row + 1
                 current_column = wb.active.max_column
                 current_main_type = v.get()
-
                 brutto = float(brutto_field.get())
                 momsPercent = float(momsPercent_field.get())
                 momsKr = float(brutto * (momsPercent / 100))
                 netto = float(brutto - momsKr)
-                verif_nr = current_row - 3
+
                 subs1 = sub1.get()
                 subs2 = sub2.get()
+
+                def countrows():
+                    janrow = wb.worksheets[0].max_row -3
+                    febrow = wb.worksheets[1].max_row -3
+                    marrow = wb.worksheets[2].max_row -3
+                    aprrow = wb.worksheets[3].max_row -3
+                    mayrow = wb.worksheets[4].max_row -3
+                    junrow = wb.worksheets[5].max_row -3
+                    julrow = wb.worksheets[6].max_row -3
+                    augrow = wb.worksheets[7].max_row -3
+                    seprow = wb.worksheets[8].max_row -3
+                    octrow = wb.worksheets[9].max_row -3
+                    novrow = wb.worksheets[10].max_row -3
+                    decrow = wb.worksheets[11].max_row -3
+
+                    return janrow + febrow + marrow + aprrow+ mayrow + junrow + julrow + augrow + seprow + octrow +\
+                    novrow + decrow
+
+
+                verif_nr = countrows()
+
 
                 wb.active.cell(row=current_row, column=2).value = receipt_name_field.get()
 
