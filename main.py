@@ -84,11 +84,7 @@ def sheets():
             cell.alignment = Alignment(horizontal='center', vertical='center', wrapText=True)
         sheets['C3'].alignment = Alignment(horizontal='center')
 
-        # Background color
-        for x in range(5, sheets.max_row + 1):
-            c = sheets.cell(row=x, column=1)
-            if x % 2 != 0:
-                c.fill = PatternFill(start_color="ADD8E6", fill_type="solid")
+
 
     del wb["Sheet1"]
 
@@ -98,6 +94,12 @@ def excel():
     for row in wb.active:
         for cell in row:
             cell.border = Border(left=thin, right=thin)
+
+    # Background color
+    for row in range(5, wb.active.max_row + 1):
+        c = wb.active.sheets.cell(row=row, column=1)
+        if row % 2 != 0:
+            c.fill = PatternFill(start_color="ADD8E6", fill_type="solid")
 
 
 # Set focus(event) for every field
@@ -308,25 +310,21 @@ if __name__ == "__main__":
         clearFrame()
 
         def focus1(event):
-            day_field.focus_set()
-
-        def focus2(event):
             brutto_field.focus_set()
 
-        def focus3(event):
+        def focus2(event):
             momsPercent_field.focus_set()
 
         def clear():
             # Clear every field in the GUI
             receipt_name_field.delete(0, END)
-            day_field.delete(0, END)
             brutto_field.delete(0, END)
             momsPercent_field.delete(0, END)
+            headvar = 0
 
         def insert():
             # Take the data from the GUI and write to excel file
             if (receipt_name_field.get() == "" and
-                    day_field.get() == "" and
                     brutto_field.get() == "" and
                     momsPercent_field.get() == ""):
                 print("empty input")
@@ -334,7 +332,9 @@ if __name__ == "__main__":
             else:
                 current_row = wb.active.max_row
                 current_column = wb.active.max_column
-                current_sub_type = sub_type_field.get()
+                current_main_type = v.get()
+
+
                 brutto = float(brutto_field.get())
                 momsPercent = float(momsPercent_field.get())
                 momsKr = float(brutto * (momsPercent / 100))
@@ -342,14 +342,23 @@ if __name__ == "__main__":
                 verif_nr = + 1
 
                 wb.active.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
-                wb.active.cell(row=current_row + 1, column=1).value = day_field.get()
+                if month == months_headers[1]:
+                    wb.active.cell(row=current_row + 1, column=1).value = day29.get()
+                elif month == months_headers[0] or month == months_headers[2] or month == months_headers[4] or \
+                        month == months_headers[6] or month == months_headers[7] or month == months_headers[9] or \
+                        month == months_headers[11]:
+                    wb.active.cell(row=current_row + 1, column=1).value = day31.get()
+                else:
+                    wb.active.cell(row=current_row + 1, column=1).value = day30.get()
                 wb.active.cell(row=current_row + 1, column=3).value = verif_nr
-                if current_main_type == "Inkomst":
+                # Inkomst
+                if current_main_type == 1:
                     wb.active.cell(current_row + 1, column=3).value = brutto_field.get()
                     # Moms
                     # Subtype
                     # Netto
-                elif current_main_type == "Utgift":
+                # Utgift
+                elif current_main_type == 2:
                     wb.active.cell(current_row + 1, column=4).value = brutto_field.get()
                     # Moms
                     # Subtype
@@ -444,8 +453,7 @@ if __name__ == "__main__":
 
         # Bind method to call for the focus function
         receipt_name_field.bind("<Return>", focus1)
-        day_field.bind("<Return>", focus2)
-        brutto_field.bind("<Return>", focus3)
+        brutto_field.bind("<Return>", focus2)
 
         wb.save(path)
 
