@@ -288,7 +288,7 @@ if __name__ == "__main__":
                          'Drivmedel, eldnings och smörolja', 'Underhåll inventarier',
                          'Kontorskostnader, bokföring, telefon',
                          'Försäkrings premier', 'Övriga utbetalningar',
-                         ' Underhåll näringsfastigheter ekonomibyggnader',
+                         'Underhåll näringsfastigheter ekonomibyggnader',
                          'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
     months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
                       "Juli", "Augusti", "September", "Oktober", "November", "December"]
