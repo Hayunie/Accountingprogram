@@ -7,7 +7,7 @@ from openpyxl import *
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
-path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\test1.xlsx"
+path = "C:\\Users\\snoew\\OneDrive\\Skrivbord\\Projekt\\Accounting_Test.xlsx"
 wb = load_workbook(path)
 
 
@@ -531,6 +531,7 @@ if __name__ == "__main__":
 
         # Bind method to call for the focus function
         receipt_name_field.bind("<Return>", focus1)
+        brutto_field.bind("<Return>", focus2)
         excel()
         wb.save(path)
 
