@@ -55,37 +55,37 @@ def sheets():
             tempHead = headers[h]
             sheets.cell(row=2, column=h + 1).value = tempHead
 
-    # Formula for the total
-    sheets.cell(row=3, column=4).value = '=SUM(D4:INDEX(D:D,ROWS(D:D)))'
-    sheets.cell(row=3, column=5).value = '=SUM(E4:INDEX(E:E,ROWS(E:E)))'
-    sheets.cell(row=3, column=6).value = '=SUM(F4:INDEX(F:F,ROWS(F:F)))'
-    sheets.cell(row=3, column=7).value = '=SUM(G4:INDEX(G:G,ROWS(G:G)))'
-    sheets.cell(row=3, column=8).value = '=SUM(H4:INDEX(H:H,ROWS(H:H)))'
-    sheets.cell(row=3, column=9).value = '=SUM(I4:INDEX(I:I,ROWS(I:I)))'
-    sheets.cell(row=3, column=10).value = '=SUM(J4:INDEX(J:J,ROWS(J:J)))'
-    sheets.cell(row=3, column=11).value = '=SUM(K4:INDEX(K:K,ROWS(K:K)))'
-    sheets.cell(row=3, column=12).value = '=SUM(L4:INDEX(L:L,ROWS(L:L)))'
-    sheets.cell(row=3, column=13).value = '=SUM(M4:INDEX(M:M,ROWS(M:M)))'
-    sheets.cell(row=3, column=14).value = '=SUM(N4:INDEX(N:N,ROWS(N:N)))'
-    sheets.cell(row=3, column=15).value = '=SUM(O4:INDEX(O:O,ROWS(O:O)))'
-    sheets.cell(row=3, column=16).value = '=SUM(P4:INDEX(P:P,ROWS(P:P)))'
-    sheets.cell(row=3, column=17).value = '=SUM(Q4:INDEX(Q:Q,ROWS(Q:Q)))'
-    sheets.cell(row=3, column=18).value = '=SUM(R4:INDEX(R:R,ROWS(R:R)))'
-    sheets.cell(row=3, column=19).value = '=SUM(S4:INDEX(S:S,ROWS(S:S)))'
-    sheets.cell(row=3, column=20).value = '=SUM(T4:INDEX(T:T,ROWS(T:T)))'
-    sheets.cell(row=3, column=21).value = '=SUM(U4:INDEX(U:U,ROWS(U:U)))'
-    sheets.cell(row=3, column=22).value = '=SUM(V4:INDEX(V:V,ROWS(V:V)))'
-    sheets.cell(row=3, column=23).value = '=SUM(W4:INDEX(W:W,ROWS(W:W)))'
-    sheets.cell(row=3, column=24).value = '=SUM(W4:INDEX(W:W,ROWS(W:W)))'
+        # Formula for the total
+        sheets.cell(row=3, column=4).value = '=SUM(D4:INDEX(D:D,ROWS(D:D)))'
+        sheets.cell(row=3, column=5).value = '=SUM(E4:INDEX(E:E,ROWS(E:E)))'
+        sheets.cell(row=3, column=6).value = '=SUM(F4:INDEX(F:F,ROWS(F:F)))'
+        sheets.cell(row=3, column=7).value = '=SUM(G4:INDEX(G:G,ROWS(G:G)))'
+        sheets.cell(row=3, column=8).value = '=SUM(H4:INDEX(H:H,ROWS(H:H)))'
+        sheets.cell(row=3, column=9).value = '=SUM(I4:INDEX(I:I,ROWS(I:I)))'
+        sheets.cell(row=3, column=10).value = '=SUM(J4:INDEX(J:J,ROWS(J:J)))'
+        sheets.cell(row=3, column=11).value = '=SUM(K4:INDEX(K:K,ROWS(K:K)))'
+        sheets.cell(row=3, column=12).value = '=SUM(L4:INDEX(L:L,ROWS(L:L)))'
+        sheets.cell(row=3, column=13).value = '=SUM(M4:INDEX(M:M,ROWS(M:M)))'
+        sheets.cell(row=3, column=14).value = '=SUM(N4:INDEX(N:N,ROWS(N:N)))'
+        sheets.cell(row=3, column=15).value = '=SUM(O4:INDEX(O:O,ROWS(O:O)))'
+        sheets.cell(row=3, column=16).value = '=SUM(P4:INDEX(P:P,ROWS(P:P)))'
+        sheets.cell(row=3, column=17).value = '=SUM(Q4:INDEX(Q:Q,ROWS(Q:Q)))'
+        sheets.cell(row=3, column=18).value = '=SUM(R4:INDEX(R:R,ROWS(R:R)))'
+        sheets.cell(row=3, column=19).value = '=SUM(S4:INDEX(S:S,ROWS(S:S)))'
+        sheets.cell(row=3, column=20).value = '=SUM(T4:INDEX(T:T,ROWS(T:T)))'
+        sheets.cell(row=3, column=21).value = '=SUM(U4:INDEX(U:U,ROWS(U:U)))'
+        sheets.cell(row=3, column=22).value = '=SUM(V4:INDEX(V:V,ROWS(V:V)))'
+        sheets.cell(row=3, column=23).value = '=SUM(W4:INDEX(W:W,ROWS(W:W)))'
+        sheets.cell(row=3, column=24).value = '=SUM(W4:INDEX(W:W,ROWS(W:W)))'
 
 
-    # Center the values
-    wb.alignment = Alignment(horizontal='left')
-    for cell in sheets[1]:
-        cell.alignment = Alignment(horizontal='center')
-    for cell in sheets[2]:
-        cell.alignment = Alignment(horizontal='center', vertical='center', wrapText=True)
-    sheets['C3'].alignment = Alignment(horizontal='center')
+        # Center the values
+        wb.alignment = Alignment(horizontal='left')
+        for cell in sheets[1]:
+            cell.alignment = Alignment(horizontal='center')
+        for cell in sheets[2]:
+            cell.alignment = Alignment(horizontal='center', vertical='center', wrapText=True)
+        sheets['C3'].alignment = Alignment(horizontal='center')
 
     del wb["Sheet1"]
 
@@ -369,6 +369,8 @@ if __name__ == "__main__":
                 momsKr = float(brutto * (momsPercent / 100))
                 netto = float(brutto - momsKr)
                 verif_nr = current_row - 3
+                subs1 = sub1.get()
+                subs2 = sub2.get()
 
                 wb.active.cell(row=current_row, column=2).value = receipt_name_field.get()
 
@@ -383,56 +385,59 @@ if __name__ == "__main__":
 
                 wb.active.cell(row=current_row, column=3).value = verif_nr
 
+
+
                 # Inkomst
                 if current_main_type == 1:
                     wb.active.cell(current_row, column=4).value = brutto
                     # Moms
                     wb.active.cell(current_row, column=6).value = momsKr
                     # Subtype
-                    if sub1_drop == sub_type_headers1[1]:
+                    if subs1 == sub_type_headers1[1]:
                         # Column G = 7
                         wb.active.cell(current_row, column=7).value = netto
-                    elif sub1_drop == sub_type_headers1[2]:
+                    elif subs1 == sub_type_headers1[2]:
                         wb.active.cell(current_row, column=8).value = netto
-                    elif sub1_drop == sub_type_headers1[3]:
+                    elif subs1 == sub_type_headers1[3]:
                         wb.active.cell(current_row, column=9).value = netto
-                    elif sub1_drop == sub_type_headers1[4]:
+                    elif subs1 == sub_type_headers1[4]:
                         wb.active.cell(current_row, column=10).value = netto
-                    elif sub1_drop == sub_type_headers1[5]:
+                    elif subs1 == sub_type_headers1[5]:
                         wb.active.cell(current_row, column=11).value = netto
+
                 # Utgift
                 elif current_main_type == 2:
                     wb.active.cell(current_row, column=5).value = brutto
                     # Moms
-                    if sub2_drop != sub_type_headers2[11]:
+                    if subs2 != sub_type_headers2[11]:
                         wb.active.cell(current_row, column=12).value = momsKr
                     else:
                         pass
                     # Subtype
-                    if sub2_drop == sub_type_headers2[1]:
+                    if subs2 == sub_type_headers2[1]:
                         # Column M = 13
                         wb.active.cell(current_row, column=13).value = netto
-                    elif sub2_drop == sub_type_headers2[2]:
+                    elif subs2 == sub_type_headers2[2]:
                         wb.active.cell(current_row, column=14).value = netto
-                    elif sub2_drop == sub_type_headers2[3]:
+                    elif subs2 == sub_type_headers2[3]:
                         wb.active.cell(current_row, column=15).value = netto
-                    elif sub2_drop == sub_type_headers2[4]:
+                    elif subs2 == sub_type_headers2[4]:
                         wb.active.cell(current_row, column=16).value = netto
-                    elif sub2_drop == sub_type_headers2[5]:
+                    elif subs2 == sub_type_headers2[5]:
                         wb.active.cell(current_row, column=17).value = netto
-                    elif sub2_drop == sub_type_headers2[6]:
+                    elif subs2 == sub_type_headers2[6]:
                         wb.active.cell(current_row, column=18).value = netto
-                    elif sub2_drop == sub_type_headers2[7]:
+                    elif subs2 == sub_type_headers2[7]:
                         wb.active.cell(current_row, column=19).value = netto
-                    elif sub2_drop == sub_type_headers2[8]:
+                    elif subs2 == sub_type_headers2[8]:
                         wb.active.cell(current_row, column=20).value = netto
-                    elif sub2_drop == sub_type_headers2[9]:
+                    elif subs2 == sub_type_headers2[9]:
                         wb.active.cell(current_row, column=21).value = netto
-                    elif sub2_drop == sub_type_headers2[10]:
+                    elif subs2 == sub_type_headers2[10]:
                         wb.active.cell(current_row, column=22).value = netto
-                    elif sub2_drop == sub_type_headers2[11]:
+                    elif subs2 == sub_type_headers2[11]:
                         wb.active.cell(current_row, column=23).value = brutto
-                    elif sub2_drop == sub_type_headers2[12]:
+                    elif subs2 == sub_type_headers2[12]:
                         wb.active.cell(current_row, column=24).value = netto
 
             excel()
@@ -454,6 +459,14 @@ if __name__ == "__main__":
                 sub2.set(sub_type_headers2[0])
                 sub2_drop.pack(side=LEFT, pady=15, padx=5)
                 sub2_drop.configure(width=40, font=11)
+
+        sub1 = StringVar()
+        sub1.set(sub_type_headers1[0])
+        sub1_drop = OptionMenu(frame3_left_top, sub1, *sub_type_headers1)
+
+        sub2 = StringVar()
+        sub2.set(sub_type_headers2[0])
+        sub2_drop = OptionMenu(frame3_left_top, sub2, *sub_type_headers2)
 
         # Set the config of GUI window
         root.geometry("500x550")
@@ -499,14 +512,6 @@ if __name__ == "__main__":
             day30.pack(side=LEFT, pady=15, padx=15)
 
         Default_Label(frame3_left_top, text="Sort:").pack(side=LEFT, pady=15, padx=5)
-
-        sub1 = StringVar()
-        sub1.set(sub_type_headers1[0])
-        sub1_drop = OptionMenu(frame3_left_top, sub1, *sub_type_headers1)
-
-        sub2 = StringVar()
-        sub2.set(sub_type_headers2[0])
-        sub2_drop = OptionMenu(frame3_left_top, sub2, *sub_type_headers2)
 
         Default_Label(frame3_left_bot, text="Pris:").pack(padx=5, pady=15, side=LEFT)
         brutto_field = Entry(frame3_left_bot, width=7, font=12)
