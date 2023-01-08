@@ -1,5 +1,6 @@
 import os
 from tkinter import filedialog
+from tkinter.ttk import Combobox
 
 import openpyxl
 from openpyxl import *
@@ -14,11 +15,15 @@ wb = load_workbook(path)
 def sheets():
     months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
               "Juli", "Augusti", "September", "Oktober", "November", "December"]
-    headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.\nnr', 'Inbetalningar', 'Utbetalningar', 'Utgående\nmoms',
-               'Inventarier\nförsäljning', 'Nötkreatur', 'Svin', 'Skog och\nskogs-\nprodukter', 'Övriga \ninbetalningar',
+    headers = ['Dag', 'Köpare, Säljare, Varuslag, etc.', 'Verif.\nnr', 'Inbetalningar', 'Utbetalningar',
+               'Utgående\nmoms',
+               'Inventarier\nförsäljning', 'Nötkreatur', 'Svin', 'Skog och\nskogs-\nprodukter',
+               'Övriga \ninbetalningar',
                'Ingående\nmoms', 'Inventarier\ninköp', 'Inköp djur', 'Omkostnader\nskogen', 'Omkostnader\ndjurskötseln',
-               'Drivmedel,\neldnings och\nsmörolja', 'Underhåll\ninventarier', 'Kontors-\nkostnader,\nbokföring,\ntelefon',
-               'Försäkrings\npremier', 'Övriga\nutbetalningar', ' Underhåll\nnärings-\nfastigheter\nekonomi-\nbyggnader',
+               'Drivmedel,\neldnings och\nsmörolja', 'Underhåll\ninventarier',
+               'Kontors-\nkostnader,\nbokföring,\ntelefon',
+               'Försäkrings\npremier', 'Övriga\nutbetalningar',
+               ' Underhåll\nnärings-\nfastigheter\nekonomi-\nbyggnader',
                'Underhåll\nnärings-\nfastigheter\nbostäder\n(inkl moms)', 'Underhåll\nmark-\nanläggning']
 
     for m in range(len(months)):
@@ -87,82 +92,28 @@ def sheets():
 
     del wb["Sheet1"]
 
+
 def excel():
     thin = Side(border_style="thin", color="000000")
     for row in wb.active:
         for cell in row:
             cell.border = Border(left=thin, right=thin)
 
+
 # Set focus(event) for every field
-def focus1(event):
-    receipt_entries.day_field.focus_set()
-
-def focus2(event):
-    receipt_entries.brutto_field.focus_set()
-
-def focus3(event):
-    receipt_entries.momsPercent_field.focus_set()
-
-def clear():
-    # Clear every field in the GUI
-    receipt_entries.receipt_name_field.delete(0, END)
-    receipt_entries.day_field.delete(0, END)
-    receipt_entries.brutto_field.delete(0, END)
-    receipt_entries.momsPercent_field.delete(0, END)
-
-def insert():
-    # Take the data from the GUI and write to excel file
-    if (receipt_entries.receipt_name_field.get() == "" and
-            receipt_entries.day_field.get() == "" and
-            receipt_entries.month_field.get() == "" and
-            receipt_entries.brutto_field.get() == "" and
-            receipt_entries.momsPercent_field.get() == ""):
-        print("empty input")
-
-    else:
-        current_row = wb.active.max_row
-        current_column = wb.active.max_column
-        current_sub_type = receipt_entries.sub_type_field.get()
-        brutto = float(receipt_entries.brutto_field.get())
-        momsPercent = float(receipt_entries.momsPercent_field.get())
-        momsKr = float(brutto * (momsPercent / 100))
-        netto = float(brutto - momsKr)
-        verif_nr =+ 1
-
-        wb.active.cell(row=current_row + 1, column=2).value = receipt_entries.receipt_name_field.get()
-        wb.active.cell(row=current_row + 1, column=1).value = receipt_entries.day_field.get()
-        wb.active.cell(row=current_row + 1, column=3).value = verif_nr
-        if current_main_type == "Inkomst":
-            wb.active.cell(current_row + 1, column=3).value = brutto_field.get()
-            # Moms
-            # Subtype
-            # Netto
-        elif current_main_type == "Utgift":
-            wb.active.cell(current_row + 1, column=4).value = brutto_field.get()
-            # Moms
-            # Subtype
-            # Netto
-        # if current_sub_type == "":
-
-    # wb.save("C:\\Users\\snoew\\Desktop\\demo.xlsx")
-
-    # set focus at first first field with focus_set()
-
-    # clear()
-
 
 
 # Save file
 # def saveFile():
-    # if path == None:
-        # path = asksaveasfilename(initialfile='Untitled.xlsx', defaultextension=".xlsx",
-                                #filetypes=[("All Files", "*.*"),("Excel Documents","*.xlsx")])
-        # if path == "":
-            #path = None
-        # else:
-            ## Try to save the file
-            # file = open(path,"w")
-            # file.write(
+# if path == None:
+# path = asksaveasfilename(initialfile='Untitled.xlsx', defaultextension=".xlsx",
+# filetypes=[("All Files", "*.*"),("Excel Documents","*.xlsx")])
+# if path == "":
+# path = None
+# else:
+## Try to save the file
+# file = open(path,"w")
+# file.write(
 
 # def showFile()
 
@@ -172,54 +123,77 @@ if __name__ == "__main__":
         month = months_headers[0]
         wb.active = 1
         receipt_entries(month)
+
+
     def set_feb():
         month = months_headers[1]
         wb.active = 2
         receipt_entries(month)
+
+
     def set_mar():
         month = months_headers[2]
         wb.active = 3
         receipt_entries(month)
+
+
     def set_apr():
         month = months_headers[3]
         wb.active = 4
         receipt_entries(month)
+
+
     def set_may():
         month = months_headers[4]
         wb.active = 5
         receipt_entries(month)
+
+
     def set_jun():
         month = months_headers[5]
         wb.active = 6
         receipt_entries(month)
+
+
     def set_jul():
         month = months_headers[6]
         wb.active = 7
         receipt_entries(month)
+
+
     def set_aug():
         month = months_headers[7]
         wb.active = 8
         receipt_entries(month)
+
+
     def set_sep():
         month = months_headers[8]
         wb.active = 9
         receipt_entries(month)
+
+
     def set_oct():
         month = months_headers[9]
         wb.active = 10
         receipt_entries(month)
+
+
     def set_nov():
         month = months_headers[10]
         wb.active = 11
         receipt_entries(month)
+
+
     def set_dec():
         month = months_headers[11]
         wb.active = 12
         receipt_entries(month)
 
+
     def browseFiles():
-        filename = filedialog.askopenfilename(initialdir= "/", title="Select a file",
-                                              filetypes=(("Excel files","*.xlsx"),("all files","*.*")))
+        filename = filedialog.askopenfilename(initialdir="/", title="Select a file",
+                                              filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         wb = load_workbook(filename)
         root.title(os.path.basename(filename))
 
@@ -231,7 +205,7 @@ if __name__ == "__main__":
             wb.save(filepath)
             #sheets()
             nf.destroy()"""
-        nf= Toplevel(root)
+        nf = Toplevel(root)
         nf.geometry("300x300")
         nf.configure(bg='light blue')
         Default_Label(nf, text="Not yet implemented").pack()
@@ -239,6 +213,7 @@ if __name__ == "__main__":
         """Default_Label(nf, text="Välj namn på filen: ").pack()
         entry = Entry(nf, font=12).pack()
         Default_Button(nf, text="Okej!", command=newfile).pack()"""
+
 
     root = Tk()
     menu = Menu(root)
@@ -257,30 +232,42 @@ if __name__ == "__main__":
 
     root.configure(bg='light blue')
 
-
     sub_type_headers1 = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter',
                          'Övriga inbetalningar']
     sub_type_headers2 = ['----', 'Inventarier inköp', 'Inköp djur', 'Omkostnader skogen', 'Omkostnader djurskötseln',
-               'Drivmedel, eldnings och smörolja', 'Underhåll inventarier', 'Kontorskostnader, bokföring, telefon',
-               'Försäkrings premier', 'Övriga utbetalningar', ' Underhåll näringsfastigheter ekonomibyggnader',
-               'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
+                         'Drivmedel, eldnings och smörolja', 'Underhåll inventarier',
+                         'Kontorskostnader, bokföring, telefon',
+                         'Försäkrings premier', 'Övriga utbetalningar',
+                         ' Underhåll näringsfastigheter ekonomibyggnader',
+                         'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
 
     months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
-              "Juli", "Augusti", "September", "Oktober", "November", "December"]
-
+                      "Juli", "Augusti", "September", "Oktober", "November", "December"]
 
     # Create frame
     mainframe = Frame(root, bg='light blue')
-    mainframe.pack(expand=True, fill="both")
+    mainframe.pack(fill="both", side=TOP)
 
     frame2 = Frame(root, bg='light blue')
-    frame2.pack(expand=True, fill="both")
+    frame2.pack(fill="both", side=TOP)
+    frame2_left = Frame(frame2, bg='light blue')
+    frame2_left.pack(side=LEFT, fill="both")
+    frame2_right = Frame(frame2, bg='light blue')
+    frame2_right.pack(side=RIGHT, fill="both")
 
     frame3 = Frame(root, bg='light blue')
-    frame3.pack(expand=True, fill="both")
+    frame3.pack(fill="both", side=TOP)
+    frame3_left_top = Frame(frame3, bg='light blue')
+    frame3_left_top.pack(side=TOP, fill="both")
+    frame3_left_bot = Frame(frame3, bg='light blue')
+    frame3_left_bot.pack(side=TOP, fill="both")
 
     frame4 = Frame(root, bg='light blue')
-    frame4.pack(expand=True, fill="both")
+    frame4.pack(expand=True, fill="both", side=TOP)
+    frame4_top = Frame(frame4, bg='light blue')
+    frame4_top.pack(side=TOP, fill="both")
+    frame4_bot = Frame(frame4, bg='light blue')
+    frame4_bot.pack(side=TOP, fill="both")
 
 
     class Default_Label(Label):
@@ -296,26 +283,95 @@ if __name__ == "__main__":
             self['font'] = 14
             self['width'] = 15
 
+
     Default_Label(mainframe, text='Välj månad').pack(side="top", pady=5)
-    Default_Button(mainframe, text= months_headers[0], command= set_jan).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[1], command= set_feb).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[2], command= set_mar).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[3], command= set_apr).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[4], command= set_may).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[5], command= set_jun).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[6], command= set_jul).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[7], command= set_aug).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[8], command= set_sep).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[9], command= set_oct).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[10], command= set_nov).pack(pady=5)
-    Default_Button(mainframe, text= months_headers[11], command= set_dec).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[0], command=set_jan).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[1], command=set_feb).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[2], command=set_mar).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[3], command=set_apr).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[4], command=set_may).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[5], command=set_jun).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[6], command=set_jul).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[7], command=set_aug).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[8], command=set_sep).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[9], command=set_oct).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[10], command=set_nov).pack(pady=5)
+    Default_Button(mainframe, text=months_headers[11], command=set_dec).pack(pady=5)
+
 
     def clearFrame():
         for widget in mainframe.winfo_children():
-            widget.destroy()
+            widget.pack_forget()
+
 
     def receipt_entries(month):
         clearFrame()
+
+        def focus1(event):
+            day_field.focus_set()
+
+        def focus2(event):
+            brutto_field.focus_set()
+
+        def focus3(event):
+            momsPercent_field.focus_set()
+
+        def clear():
+            # Clear every field in the GUI
+            receipt_name_field.delete(0, END)
+            day_field.delete(0, END)
+            brutto_field.delete(0, END)
+            momsPercent_field.delete(0, END)
+
+        def insert():
+            # Take the data from the GUI and write to excel file
+            if (receipt_name_field.get() == "" and
+                    day_field.get() == "" and
+                    brutto_field.get() == "" and
+                    momsPercent_field.get() == ""):
+                print("empty input")
+
+            else:
+                current_row = wb.active.max_row
+                current_column = wb.active.max_column
+                current_sub_type = sub_type_field.get()
+                brutto = float(brutto_field.get())
+                momsPercent = float(momsPercent_field.get())
+                momsKr = float(brutto * (momsPercent / 100))
+                netto = float(brutto - momsKr)
+                verif_nr = + 1
+
+                wb.active.cell(row=current_row + 1, column=2).value = receipt_name_field.get()
+                wb.active.cell(row=current_row + 1, column=1).value = day_field.get()
+                wb.active.cell(row=current_row + 1, column=3).value = verif_nr
+                if current_main_type == "Inkomst":
+                    wb.active.cell(current_row + 1, column=3).value = brutto_field.get()
+                    # Moms
+                    # Subtype
+                    # Netto
+                elif current_main_type == "Utgift":
+                    wb.active.cell(current_row + 1, column=4).value = brutto_field.get()
+                    # Moms
+                    # Subtype
+                    # Netto
+                # if current_sub_type == "":
+
+            wb.save(path)
+
+            receipt_name_field.focus_set()
+
+            clear()
+
+        def ok():
+            headvar = v.get()
+            if headvar == 1:
+                sub2_drop.pack_forget()
+                sub1_drop.pack(side=LEFT, pady=15, padx=5)
+                sub1_drop.configure(width=20, font=11)
+            elif headvar == 2:
+                sub1_drop.pack_forget()
+                sub2_drop.pack(side=LEFT, pady=15, padx=5)
+                sub2_drop.configure(width=40, font=11)
 
         # Set the config of GUI window
         root.geometry("500x550")
@@ -323,50 +379,75 @@ if __name__ == "__main__":
         # Create labels for every data entry
         Default_Label(mainframe, text=month).pack(padx=5, pady=5, side=TOP, anchor='n')
         v = IntVar()
-        Radiobutton(mainframe, text="Inbetalning", font=14, variable=v, value=1, bg='light blue').pack(side=TOP, anchor='n', padx=50)
-        Radiobutton(mainframe, text="Utbetalning", font=14, variable=v, value=2, bg='light blue').pack(side=TOP, anchor='n', padx=10)
+        Radiobutton(mainframe, text="Inbetalning", font=14, variable=v, value=1, bg='light blue', command=ok).pack(
+            side=LEFT,
+            anchor='n',
+            padx=70,
+            pady=5)
+        Radiobutton(mainframe, text="Utbetalning", font=14, variable=v, value=2, bg='light blue', command=ok).pack(
+            side=RIGHT,
+            anchor='n',
+            padx=70,
+            pady=5)
 
-        Default_Label(frame2, text='Köpare, Säljare, Varumärke etc.').pack(padx=5, pady=5, anchor='nw')
-        receipt_name_field = Entry(frame2, font=12).pack(padx=5, pady=5)
-        Default_Label(frame2, text='Dag').pack(side=LEFT, anchor='nw', padx=5, pady=5)
-        day_field = Entry(frame2, width=5, font=12).pack(side=LEFT, anchor='nw', padx=5, pady=5)
+        Default_Label(frame2_left, text='Köpare, Säljare, Varumärke etc.:').pack(padx=5, pady=15, side=TOP)
+        receipt_name_field = Entry(frame2_right, font=12)
+        receipt_name_field.pack(padx=25, ipadx=15, pady=15, side=TOP)
+        Default_Label(frame2_left, text='Dag:').pack(side=LEFT, pady=15, padx=5)
 
-        Default_Label(frame3, text="Sort").pack(anchor='nw', padx=5, pady=5)
-        Default_Label(frame3, text="Dropdown").pack(anchor='nw', padx=5, pady=5)
-        Default_Label(frame3, text="Pris").pack(anchor='nw', padx=5, pady=5)
-        brutto_field = Entry(frame3, width=5, font=12).pack(padx=5, pady=5)
-        Default_Label(frame3, text="Kr").pack(padx=5, pady=5)
+        day = StringVar()
+        day31 = Combobox(frame2_left, width=3, textvariable=day, font=12)
+        day30 = Combobox(frame2_left, width=3, textvariable=day, font=12)
+        day29 = Combobox(frame2_left, width=3, textvariable=day, font=12)
 
-        Default_Label(frame4, text="Moms").pack(anchor='nw', padx=5, pady=5)
-        momsPercent_field = Entry(frame4, width=5, font=12).pack(padx=5, pady=5)
-        Default_Label(frame4, text="%").pack(padx=5, pady=5)
+        day31['values'] = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
+                           '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31')
+        day30['values'] = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
+                           '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30')
+        day29['values'] = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
+                           '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29')
+
+        if month == months_headers[1]:
+            day29.pack(side=LEFT, pady=15, padx=15)
+        elif month == months_headers[0] or month == months_headers[2] or month == months_headers[4] or \
+                month == months_headers[6] or month == months_headers[7] or month == months_headers[9] or \
+                month == months_headers[11]:
+            day31.pack(side=LEFT, pady=15, padx=15)
+        else:
+            day30.pack(side=LEFT, pady=15, padx=15)
+
+        Default_Label(frame3_left_top, text="Sort:").pack(side=LEFT, pady=15, padx=5)
+
+        sub1 = StringVar()
+        sub1.set(sub_type_headers1[0])
+        sub1_drop = OptionMenu(frame3_left_top, sub1, *sub_type_headers1)
+
+        sub2 = StringVar()
+        sub2.set(sub_type_headers2[0])
+        sub2_drop = OptionMenu(frame3_left_top, sub2, *sub_type_headers2)
+
+        Default_Label(frame3_left_bot, text="Pris:").pack(padx=5, pady=15, side=LEFT)
+        brutto_field = Entry(frame3_left_bot, width=7, font=12)
+        brutto_field.pack(padx=15, pady=15, side=LEFT)
+        Default_Label(frame3_left_bot, text="Kr").pack(side=LEFT)
+
+        Default_Label(frame4_top, text="Moms:").pack(side=LEFT, pady=15, padx=5)
+        momsPercent_field = Entry(frame4_top, width=5, font=12)
+        momsPercent_field.pack(side=LEFT, pady=15)
+        Default_Label(frame4_top, text="%").pack(side=LEFT, pady=15, padx=5)
+
         # Save button
-        Default_Button(frame4, text= "Spara", command= insert).pack(pady=5)
+        Default_Button(frame4_bot, text="Spara", command=insert).pack(padx=50, pady=70, side=RIGHT, anchor='s')
 
         # Back Button
-        Default_Button(frame4, text= "Tillbaka", command= root.mainloop).pack(pady=5)
-
-        # Create a text entrybox for every data entry
-
-
-
-
-
-        # Dropdown menus
-
-
-
+        Default_Button(frame4_bot, text="Tillbaka").pack(padx=50, pady=70, side=LEFT, anchor='s')
 
         # Bind method to call for the focus function
         receipt_name_field.bind("<Return>", focus1)
         day_field.bind("<Return>", focus2)
         brutto_field.bind("<Return>", focus3)
 
-
-        # sheets()
         wb.save(path)
-
-
 
 
     root.mainloop()
