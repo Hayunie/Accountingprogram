@@ -241,6 +241,30 @@ if __name__ == "__main__":
         entry = Entry(nf, font=12).pack()
         Default_Button(nf, text="Okej!", command=newfile).pack()"""
 
+    def clearFrameMonths():
+        for widget in mainframe.winfo_children():
+            widget.pack_forget()
+
+    def clearFrameEntries():
+        for frame in mainframe.winfo_children():
+            frame.pack_forget()
+            for widget in mainframe.winfo_children():
+                widget.pack_forget()
+            for widget in frame2_right.winfo_children():
+                widget.pack_forget()
+            for widget in frame2_left.winfo_children():
+                widget.pack_forget()
+            for widget in frame3_left_bot.winfo_children():
+                widget.pack_forget()
+            for widget in frame3_left_top.winfo_children():
+                widget.pack_forget()
+            for widget in frame4_bot.winfo_children():
+                widget.pack_forget()
+            for widget in frame4_top.winfo_children():
+                widget.pack_forget()
+
+
+
 
     root = Tk()
     menu = Menu(root)
@@ -256,7 +280,6 @@ if __name__ == "__main__":
     root.title(os.path.basename(path))
     # Set the config of GUI window
     root.geometry("500x550")
-
     root.configure(bg='light blue')
 
     sub_type_headers1 = ['----', 'Inventarier försäljning', 'Nötkreatur', 'Svin', 'Skog och skogsprodukter',
@@ -267,7 +290,6 @@ if __name__ == "__main__":
                          'Försäkrings premier', 'Övriga utbetalningar',
                          ' Underhåll näringsfastigheter ekonomibyggnader',
                          'Underhåll näringsfastigheter bostäder (inkl moms)', 'Underhåll markanläggning']
-
     months_headers = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
                       "Juli", "Augusti", "September", "Oktober", "November", "December"]
 
@@ -310,29 +332,34 @@ if __name__ == "__main__":
             self['font'] = 14
             self['width'] = 15
 
+    def test():
+        clearFrameEntries()
+        months()
+    def months():
+        clearFrameEntries()
+        Default_Label(mainframe, text='Välj månad').pack(side="top", pady=5)
+        Default_Button(mainframe, text=months_headers[0], command=set_jan).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[1], command=set_feb).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[2], command=set_mar).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[3], command=set_apr).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[4], command=set_may).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[5], command=set_jun).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[6], command=set_jul).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[7], command=set_aug).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[8], command=set_sep).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[9], command=set_oct).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[10], command=set_nov).pack(pady=5)
+        Default_Button(mainframe, text=months_headers[11], command=set_dec).pack(pady=5)
 
-    Default_Label(mainframe, text='Välj månad').pack(side="top", pady=5)
-    Default_Button(mainframe, text=months_headers[0], command=set_jan).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[1], command=set_feb).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[2], command=set_mar).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[3], command=set_apr).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[4], command=set_may).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[5], command=set_jun).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[6], command=set_jul).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[7], command=set_aug).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[8], command=set_sep).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[9], command=set_oct).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[10], command=set_nov).pack(pady=5)
-    Default_Button(mainframe, text=months_headers[11], command=set_dec).pack(pady=5)
 
 
-    def clearFrame():
-        for widget in mainframe.winfo_children():
-            widget.pack_forget()
+
+
+
 
 
     def receipt_entries(month):
-        clearFrame()
+        clearFrameMonths()
 
         def focus1(event):
             brutto_field.focus_set()
@@ -527,7 +554,7 @@ if __name__ == "__main__":
         Default_Button(frame4_bot, text="Spara", command=insert).pack(padx=50, pady=70, side=RIGHT, anchor='s')
 
         # Back Button
-        Default_Button(frame4_bot, text="Tillbaka").pack(padx=50, pady=70, side=LEFT, anchor='s')
+        Default_Button(frame4_bot, text="Tillbaka", command=months).pack(padx=50, pady=70, side=LEFT, anchor='s')
 
         # Bind method to call for the focus function
         receipt_name_field.bind("<Return>", focus1)
@@ -535,6 +562,6 @@ if __name__ == "__main__":
         excel()
         wb.save(path)
 
-
+    months()
 
     root.mainloop()
