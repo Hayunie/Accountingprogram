@@ -98,11 +98,9 @@ def excel():
 
     # Background color
     current_row = wb.active.max_row
-    if current_row % 2 != 0:
+    if current_row % 2 == 0:
         for cell in wb.active[current_row:current_row]:
             cell.fill = PatternFill(start_color="ADD8E6", fill_type="solid")
-
-
 
 
     # Set the font
@@ -150,73 +148,73 @@ def excel():
 if __name__ == "__main__":
     def set_jan():
         month = months_headers[0]
-        wb.active = 1
+        wb.active = 0
         receipt_entries(month)
 
 
     def set_feb():
         month = months_headers[1]
-        wb.active = 2
+        wb.active = 1
         receipt_entries(month)
 
 
     def set_mar():
         month = months_headers[2]
-        wb.active = 3
+        wb.active = 2
         receipt_entries(month)
 
 
     def set_apr():
         month = months_headers[3]
-        wb.active = 4
+        wb.active = 3
         receipt_entries(month)
 
 
     def set_may():
         month = months_headers[4]
-        wb.active = 5
+        wb.active = 4
         receipt_entries(month)
 
 
     def set_jun():
         month = months_headers[5]
-        wb.active = 6
+        wb.active = 5
         receipt_entries(month)
 
 
     def set_jul():
         month = months_headers[6]
-        wb.active = 7
+        wb.active = 6
         receipt_entries(month)
 
 
     def set_aug():
         month = months_headers[7]
-        wb.active = 8
+        wb.active = 7
         receipt_entries(month)
 
 
     def set_sep():
         month = months_headers[8]
-        wb.active = 9
+        wb.active = 8
         receipt_entries(month)
 
 
     def set_oct():
         month = months_headers[9]
-        wb.active = 10
+        wb.active = 9
         receipt_entries(month)
 
 
     def set_nov():
         month = months_headers[10]
-        wb.active = 11
+        wb.active = 10
         receipt_entries(month)
 
 
     def set_dec():
         month = months_headers[11]
-        wb.active = 12
+        wb.active = 11
         receipt_entries(month)
 
 
@@ -255,7 +253,7 @@ if __name__ == "__main__":
     filemenu.add_command(label='Exit', command=root.quit)
 
     # Set title of GUI Window
-    root.title()
+    root.title(os.path.basename(path))
     # Set the config of GUI window
     root.geometry("500x550")
 
@@ -448,10 +446,12 @@ if __name__ == "__main__":
             headvar = v.get()
             if headvar == 1:
                 sub2_drop.pack_forget()
+                sub1.set(sub_type_headers1[0])
                 sub1_drop.pack(side=LEFT, pady=15, padx=5)
                 sub1_drop.configure(width=20, font=11)
             elif headvar == 2:
                 sub1_drop.pack_forget()
+                sub2.set(sub_type_headers2[0])
                 sub2_drop.pack(side=LEFT, pady=15, padx=5)
                 sub2_drop.configure(width=40, font=11)
 
